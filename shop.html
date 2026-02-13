@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - LEGION GRAFIX</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon-blue': '#00f3ff',
+                        'neon-purple': '#bc13fe',
+                        'dark-bg': '#0a0a0a',
+                        'card-bg': '#1a1a1a'
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(to right, #00f3ff, #bc13fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-btn.active {
+            background-color: #bc13fe;
+            color: white;
+            border-color: #bc13fe;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-sans">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-3xl font-bold tracking-tighter gradient-text"><span
+                            class="text-white">LEGION GRAFIX</span></a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html"
+                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="shop.html"
+                            class="text-white hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</a>
+                        <a href="portfolio.html"
+                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Portfolio</a>
+                        <a href="about.html"
+                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="contact.html"
+                            class="bg-neon-purple hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">Contact
+                            Me</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="pt-32 pb-12 text-center bg-gradient-to-b from-dark-bg to-card-bg animate-on-scroll">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Premium <span class="gradient-text">Assets</span></h1>
+        <p class="text-gray-400 max-w-2xl mx-auto">High-quality design resources for your next big project.</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Filters -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <button
+                class="filter-btn active border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">All</button>
+            <button
+                class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">Logos</button>
+            <button
+                class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">Templates</button>
+            <button
+                class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">Vectors</button>
+            <button
+                class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">3D
+                Assets</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-on-scroll delay-200">
+
+            <!-- Product 1 -->
+            <div
+                class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1614853035986-d2546452292f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Product 1"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity"></div>
+                    <button
+                        class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Vectors</div>
+                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
+                        Geometric Shapes Pack</h3>
+                    <div class="flex justify-between items-end mt-4">
+                        <span class="text-2xl font-bold">$15.00</span>
+                        <a href="#"
+                            class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
+                            Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div
+                class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1626544827763-d516dce335ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Product 2"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <button
+                        class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Templates</div>
+                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">Social
+                        Media Bundle</h3>
+                    <div class="flex justify-between items-end mt-4">
+                        <span class="text-2xl font-bold">$29.00</span>
+                        <a href="#"
+                            class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
+                            Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div
+                class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1635322966219-b75ed372eb01?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Product 3"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <button
+                        class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">3D Assets</div>
+                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
+                        Abstract Spheres</h3>
+                    <div class="flex justify-between items-end mt-4">
+                        <span class="text-2xl font-bold">$12.00</span>
+                        <a href="#"
+                            class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
+                            Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div
+                class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Product 4"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <button
+                        class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Backgrounds</div>
+                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">Liquid
+                        Gradients</h3>
+                    <div class="flex justify-between items-end mt-4">
+                        <span class="text-2xl font-bold">$10.00</span>
+                        <a href="#"
+                            class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
+                            Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div
+                class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Product 5"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <button
+                        class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Logos</div>
+                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
+                        Minimalist Logo Kit</h3>
+                    <div class="flex justify-between items-end mt-4">
+                        <span class="text-2xl font-bold">$40.00</span>
+                        <a href="#"
+                            class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
+                            Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div
+                class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1614730341194-75c60740a2d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                        alt="Product 6"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <button
+                        class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Textures</div>
+                    <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">Grunge
+                        Overlays</h3>
+                    <div class="flex justify-between items-end mt-4">
+                        <span class="text-2xl font-bold">$8.00</span>
+                        <a href="#"
+                            class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
+                            Details</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-2xl font-bold gradient-text mb-4">LEGION GRAFIX</h3>
+            <p class="text-gray-500 text-sm">
+                &copy; 2024 LEGION GRAFIX. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

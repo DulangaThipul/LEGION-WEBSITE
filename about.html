@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - LEGION GRAFIX</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon-blue': '#00f3ff',
+                        'neon-purple': '#bc13fe',
+                        'dark-bg': '#0a0a0a',
+                        'card-bg': '#1a1a1a'
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(to right, #00f3ff, #bc13fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-dark-bg text-white font-sans">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-3xl font-bold tracking-tighter gradient-text"><span
+                            class="text-white">LEGION GRAFIX</span></a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html"
+                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="shop.html"
+                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</a>
+                        <a href="portfolio.html"
+                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Portfolio</a>
+                        <a href="about.html"
+                            class="text-white hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="contact.html"
+                            class="bg-neon-purple hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">Contact
+                            Me</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20">
+
+        <div class="flex flex-col md:flex-row items-center gap-16">
+            <!-- Image -->
+            <div class="w-full md:w-1/2 relative group">
+                <div
+                    class="absolute inset-0 bg-neon-blue bg-opacity-20 rounded-2xl transform translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-300">
+                </div>
+                <img src="https://i.ibb.co/QjnhnH79/Whats-App-Image-2025-12-08-at-8-08-10-PM.jpg"
+                    alt="Designer Portrait"
+                    class="relative rounded-2xl shadow-2xl w-full grayscale-0 md:grayscale hover:grayscale-0 transition-all duration-500">
+            </div>
+
+            <!-- Content -->
+            <div class="w-full md:w-1/2">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Behind the <span class="gradient-text">Pixel</span></h1>
+                <h2 class="text-2xl text-white font-semibold mb-4">Hello, I'm <span
+                        class="text-neon-purple">Dulanga</span>.</h2>
+                <p class="text-gray-400 mb-6 leading-relaxed text-lg">
+                    I am a passionate Graphic Designer and Digital Artist with over 2 years of experience in creating
+                    visual identities that speak louder than words. My mission is to transform abstract ideas into
+                    tangible, "PREMIUM" visuals that elevate brands.
+                </p>
+                <p class="text-gray-400 mb-8 leading-relaxed text-lg">
+                    Specializing in branding, UI/UX asset creation, and futuristic conceptual art, I don't just design;
+                    I create experiences.
+                </p>
+
+                <!-- Skills -->
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-sm text-gray-300">Adobe Photoshop</span>
+                            <span class="text-neon-blue text-sm">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2">
+                            <div class="bg-neon-blue h-2 rounded-full" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-sm text-gray-300">Adobe Illustrator</span>
+                            <span class="text-neon-purpose text-sm text-neon-purple">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2">
+                            <div class="bg-neon-purple h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-bold text-sm text-gray-300">Blender / 3D</span>
+                            <span class="text-neon-blue text-sm">65%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2">
+                            <div class="bg-neon-blue h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <a href="contact.html"
+                        class="inline-block bg-white text-black font-bold py-3 px-8 rounded-full hover:bg-neon-purple hover:text-white transition-all transform hover:scale-105">Let's
+                        Talk Business</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-2xl font-bold gradient-text mb-4">LEGION GRAFIX</h3>
+            <p class="text-gray-500 text-sm">
+                &copy; 2024 LEGION GRAFIX. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
