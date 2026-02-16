@@ -9,6 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -26,57 +28,79 @@
             }
         }
     </script>
-    <style>
-        .gradient-text {
-            background: linear-gradient(to right, #00f3ff, #bc13fe);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .glass-card {
-            background: rgba(26, 26, 26, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-    </style>
 </head>
 
-<body class="bg-dark-bg text-white font-sans">
+<body class="bg-dark-bg text-white font-sans overflow-x-hidden">
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full" style="z-index: -1;"></canvas>
+    <div id="scroll-progress"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="page-transition-wrapper">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-card transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0">
-                    <a href="index.html" class="text-3xl font-bold tracking-tighter gradient-text"><span
-                            class="text-white">LEGION GRAFIX</span></a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="index.html"
-                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="shop.html"
-                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</a>
-                        <a href="portfolio.html"
-                            class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Portfolio</a>
-                        <a href="about.html"
-                            class="text-white hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                        <a href="contact.html"
-                            class="bg-neon-purple hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">Contact
-                            Me</a>
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 glass-card transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-3xl font-bold tracking-tighter gradient-text logo-glow"><span
+                                class="text-white">LEGION GRAFIX</span></a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-8">
+                            <a href="index.html"
+                                class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                            <a href="shop.html"
+                                class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</a>
+                            <a href="portfolio.html"
+                                class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Portfolio</a>
+                            <a href="about.html"
+                                class="text-white hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                            <a href="contact.html"
+                                class="bg-neon-purple hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">Contact
+                                Me</a>
+                        </div>
                     </div>
                 </div>
             </div>
+    </div>
+    <!-- Mobile menu button -->
+    <div class="-mr-2 flex md:hidden">
+        <button type="button" id="mobile-menu-btn"
+            class="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+    </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden bg-black bg-opacity-95 backdrop-blur-xl border-t border-gray-800" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="index.html"
+                class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+            <a href="shop.html"
+                class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Shop</a>
+            <a href="portfolio.html"
+                class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Portfolio</a>
+            <a href="about.html" class="text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+            <a href="contact.html" class="text-neon-blue block px-3 py-2 rounded-md text-base font-medium">Contact
+                Me</a>
         </div>
+    </div>
     </nav>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20">
 
         <div class="flex flex-col md:flex-row items-center gap-16">
             <!-- Image -->
-            <div class="w-full md:w-1/2 relative group">
+            <div class="w-full md:w-1/2 relative group card-3d">
                 <div
                     class="absolute inset-0 bg-neon-blue bg-opacity-20 rounded-2xl transform translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-300">
                 </div>
@@ -146,12 +170,15 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h3 class="text-2xl font-bold gradient-text mb-4">LEGION GRAFIX</h3>
             <p class="text-gray-500 text-sm">
-                &copy; 2024 LEGION GRAFIX. All rights reserved.
+                &copy; 2026 LEGION GRAFIX | Designed BY <span class="text-neon-blue font-bold">Dulanga</span>
             </p>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script src="js/3d-bg.js"></script>
     <script src="js/main.js"></script>
+    </div> <!-- End Page Transition Wrapper -->
 </body>
 
 </html>
