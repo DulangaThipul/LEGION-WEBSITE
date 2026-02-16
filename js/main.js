@@ -15,6 +15,45 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- MOBILE NOTICE ---
+    function initMobileNotice() {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
+        if (!isMobile) return;
+
+        const notice = document.createElement('div');
+        notice.id = 'mobile-notice';
+        notice.className = 'fixed inset-0 z-[10001] flex items-center justify-center p-6 backdrop-blur-xl bg-black/80 transition-all duration-500';
+        notice.innerHTML = `
+            <div class="max-w-xs w-full glass-card p-8 rounded-3xl border border-white/20 text-center animate-scale-up">
+                <div class="w-12 h-12 bg-neon-purple/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <p class="text-white font-bold leading-relaxed mb-6">
+                    Mobile Version එක ලොකුවට Optimize කලේ නෑ පොඩි පොඩි Bugs වගයක් ඇති ගනන් ගන්න එපා...
+                </p>
+                <button id="close-mobile-notice" class="w-full py-3 bg-neon-purple text-white font-bold rounded-xl hover:bg-purple-600 transition-colors">
+                    Got it
+                </button>
+            </div>
+        `;
+        document.body.appendChild(notice);
+
+        const closeBtn = document.getElementById('close-mobile-notice');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                notice.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => notice.remove(), 500);
+            });
+        }
+    }
+
+    try {
+        initMobileNotice();
+    } catch (e) {
+        console.error("Mobile notice error:", e);
+    }
+
     // Fix 100vh issue on mobile
     const setVh = () => {
         let vh = window.innerHeight * 0.01;
@@ -170,33 +209,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function initMobileNotice() {
-        if (window.innerWidth > 768) return;
-
-        const notice = document.createElement('div');
-        notice.id = 'mobile-notice';
-        notice.className = 'fixed inset-0 z-[10001] flex items-center justify-center p-6 backdrop-blur-xl bg-black/80 transition-all duration-500';
-        notice.innerHTML = `
-            <div class="max-w-xs w-full glass-card p-8 rounded-3xl border border-white/20 text-center animate-scale-up">
-                <div class="w-12 h-12 bg-neon-purple/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-6 h-6 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                </div>
-                <p class="text-white font-bold leading-relaxed mb-6">
-                    Mobile Version එක ලොකුවට Optimize කලේ නෑ පොඩි පොඩි Bugs වගයක් ඇති ගනන් ගන්න එපා...
-                </p>
-                <button id="close-mobile-notice" class="w-full py-3 bg-neon-purple text-white font-bold rounded-xl hover:bg-purple-600 transition-colors">
-                    Got it
-                </button>
-            </div>
-        `;
-        document.body.appendChild(notice);
-
-        document.getElementById('close-mobile-notice').addEventListener('click', () => {
-            notice.classList.add('opacity-0', 'pointer-events-none');
-            setTimeout(() => notice.remove(), 500);
-        });
-    }
-
     initPortfolioPopup();
-    initMobileNotice();
 });
