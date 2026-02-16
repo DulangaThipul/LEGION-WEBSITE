@@ -1,0 +1,352 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+    --neon-blue: #ffffff;
+    --neon-purple: #888888;
+    --dark-bg: #000000;
+}
+
+html {
+    background-color: #000000;
+}
+
+body {
+    background-color: transparent;
+    /* Pure AMOLED Black base is on html now */
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- SCROLL PROGRESS --- */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(to right, #00f3ff, #bc13fe);
+    z-index: 1001;
+    width: 0%;
+    transition: width 0.1s ease-out;
+}
+
+body.spa-mode {
+    overflow: hidden;
+    /* Allow canvas to show */
+}
+
+/* --- HIGH-END NOISE OVERLAY --- */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* --- FULLPAGE STRUCTURE --- */
+
+#fullpage-container {
+    width: 100vw;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.fp-section {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    /* overflow: hidden; Removed to allow inner scroll */
+    /* transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);  */
+    /* Custom transition handled in JS or below */
+    z-index: 10;
+    transform: translateY(100%);
+    /* --- ULTRA GLASS OVERLAY --- */
+    background: rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: block;
+    will-change: transform;
+}
+
+/* The active section is in view */
+.fp-section.active-section {
+    transform: translateY(0%);
+    z-index: 20;
+}
+
+/* Previous sections stay behind (or above if we want stack effect) */
+.fp-section.prev-section {
+    transform: translateY(-50%) scale(0.9);
+    /* Parallax Effect: Move up slightly and scale down */
+    opacity: 0;
+    z-index: 5;
+    filter: blur(40px);
+    /* Much stronger transition blur */
+    transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s, filter 0.5s;
+}
+
+/* Custom Scrollbar for inner content */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-purple);
+}
+
+/* --- 3D & CARDS --- */
+
+.glass-card {
+    background: rgba(10, 10, 10, 0.75);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gradient-text {
+    background: linear-gradient(to right, #ffffff, #888888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.5s ease;
+}
+
+.logo-glow {
+    animation: logo-pulse 3s infinite ease-in-out;
+}
+
+@keyframes logo-pulse {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+        text-shadow: 0 0 0px transparent;
+    }
+
+    50% {
+        filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.4));
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 8px rgba(0, 243, 255, 0.4);
+    }
+}
+
+#main-logo {
+    display: inline-block;
+    will-change: transform, opacity, filter;
+}
+
+.logo-glow:hover {
+    filter: drop-shadow(0 0 5px rgba(0, 243, 255, 0.6)) drop-shadow(0 0 10px rgba(188, 19, 254, 0.3));
+    background: linear-gradient(to right, #ffffff, #00f3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+h1,
+h2,
+h3 {
+    transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+h1:hover,
+h2:hover,
+h3:hover {
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(0, 243, 255, 0.8), 0 0 30px rgba(188, 19, 254, 0.4);
+}
+
+p {
+    transition: color 0.5s ease;
+}
+
+p:hover {
+    color: #ffffff;
+}
+
+.card-3d {
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+}
+
+/* Global Monochrome to Color effect for images */
+section img {
+    filter: grayscale(100%);
+    transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+section div:hover>img,
+section .group:hover img,
+section .card-3d:hover img,
+section img:hover {
+    filter: grayscale(0%);
+}
+
+/* --- ENHANCED BLOBS --- */
+.blob {
+    position: fixed;
+    /* Always in background */
+    border-radius: 50%;
+    filter: blur(40px);
+    /* Sharper neon core */
+    z-index: -2;
+    /* Behind canvas */
+    opacity: 0.8;
+    /* Full potential */
+    mix-blend-mode: screen;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.blob-1 {
+    top: -15%;
+    left: -15%;
+    width: 65vw;
+    height: 65vw;
+    background: radial-gradient(circle at center, rgba(0, 243, 255, 0.8) 0%, rgba(0, 243, 255, 0.3) 30%, transparent 70%);
+    animation: float 20s infinite ease-in-out;
+}
+
+.blob-2 {
+    bottom: -15%;
+    right: -15%;
+    width: 75vw;
+    height: 75vw;
+    background: radial-gradient(circle at center, rgba(188, 19, 254, 0.7) 0%, rgba(188, 19, 254, 0.2) 30%, transparent 70%);
+    animation: float 25s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(30px, 50px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.animate-scale-up {
+    animation: scaleUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Navigation Active State */
+.nav-link.active {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+/* --- MOBILE SPECIFIC OVERRIDES --- */
+@media (max-width: 768px) {
+    .fp-section {
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        background: rgba(0, 0, 0, 0.4) !important;
+        /* Darker background on mobile to help performance */
+    }
+
+    h1 {
+        font-size: 2.5rem !important;
+    }
+
+    h2 {
+        font-size: 2rem !important;
+    }
+
+    .container {
+        padding-top: 6rem !important;
+        /* pt-24 approx */
+        padding-bottom: 5rem !important;
+    }
+
+    #navbar {
+        height: 4.5rem;
+    }
+
+    #mobile-menu {
+        border-bottom-left-radius: 2rem;
+        border-bottom-right-radius: 2rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .animate-bounce p {
+        font-size: 8px !important;
+        letter-spacing: 0.3em !important;
+    }
+
+    .animate-bounce div {
+        height: 30px !important;
+    }
+}
