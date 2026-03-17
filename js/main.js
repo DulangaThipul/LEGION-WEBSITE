@@ -15,6 +15,18 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- PRELOADER REMOVAL ---
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.classList.add('loaded');
+                // Re-enable scroll/interaction if needed
+                document.body.classList.remove('overflow-hidden');
+            }, 2000); // Give it at least 2 seconds for the "wow" factor
+        });
+    }
+
     // --- MOBILE NOTICE ---
     function initMobileNotice() {
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;

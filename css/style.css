@@ -350,3 +350,172 @@ section img:hover {
         height: 30px !important;
     }
 }
+
+/* --- PRELOADER (GLITCH & STATUS) --- */
+#preloader {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1.5s ease, filter 1.5s ease;
+    overflow: hidden;
+}
+
+#preloader.loaded {
+    opacity: 0;
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.preloader-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.glitch-container {
+    margin-bottom: 2rem;
+}
+
+.glitch-text {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: 0.5em;
+    position: relative;
+    color: white;
+    text-transform: uppercase;
+    animation: glitch-skew 1s infinite linear alternate-reverse;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 #00f3ff;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 #bc13fe;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+.glitch-subtext {
+    font-size: 0.8rem;
+    letter-spacing: 1.2em;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: -0.5rem;
+    font-weight: 300;
+}
+
+.loading-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-text {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #555;
+    font-weight: 600;
+    max-width: 300px;
+    line-height: 1.5;
+}
+
+.loading-dots span {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    margin: 0 4px;
+    border-radius: 50%;
+    opacity: 0;
+    animation: dot-pulse 1.5s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+.preloader-bars {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 3rem;
+}
+
+.preloader-bars .bar {
+    width: 2px;
+    height: 20px;
+    background: white;
+    opacity: 0.2;
+    transform: scaleY(0.5);
+    animation: bar-grow 1s infinite ease-in-out alternate;
+}
+
+.preloader-bars .bar:nth-child(1) { animation-delay: 0.1s; }
+.preloader-bars .bar:nth-child(2) { animation-delay: 0.3s; }
+.preloader-bars .bar:nth-child(3) { animation-delay: 0.5s; }
+.preloader-bars .bar:nth-child(4) { animation-delay: 0.7s; }
+.preloader-bars .bar:nth-child(5) { animation-delay: 0.9s; }
+
+.preloader-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(0, 243, 255, 0.05), transparent);
+    z-index: 1;
+    animation: scanline 3s linear infinite;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
+    5% { clip: rect(70px, 9999px, 71px, 0); transform: skew(0.85deg); }
+    10% { clip: rect(2px, 9999px, 5px, 0); transform: skew(0.85deg); }
+    100% { clip: rect(67px, 9999px, 98px, 0); transform: skew(0.85deg); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(10px, 9999px, 20px, 0); transform: skew(-0.5deg); }
+    100% { clip: rect(80px, 9999px, 90px, 0); transform: skew(-0.5deg); }
+}
+
+@keyframes glitch-skew {
+    0% { transform: skew(2deg); }
+    10% { transform: skew(-2deg); }
+    20% { transform: skew(3deg); }
+    100% { transform: skew(0deg); }
+}
+
+@keyframes dot-pulse {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes bar-grow {
+    0% { opacity: 0.1; transform: scaleY(0.5); background: white; }
+    100% { opacity: 1; transform: scaleY(2); background: #00f3ff; }
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(110vh); }
+}

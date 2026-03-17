@@ -28,6 +28,30 @@
 </head>
 
 <body class="text-white font-sans overflow-hidden spa-mode">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="glitch-container">
+                <div class="glitch-text" data-text="LEGION">LEGION</div>
+                <div class="glitch-subtext">GRAFIX</div>
+            </div>
+            <div class="loading-status">
+                <div class="loading-dots">
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="status-text">Design Beyond Your Expectation.</div>
+            </div>
+            <div class="preloader-bars">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+        <div class="preloader-scanline"></div>
+    </div>
+
     <div id="scroll-progress"></div>
     <!-- Background Elements -->
     <div class="blob blob-1"></div>
@@ -110,10 +134,10 @@
                         creators.
                     </p>
                     <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                        <a href="shop.html"
+                        <button onclick="scrollToSection(1)"
                             class="card-3d border-2 border-white/40 !text-white font-bold py-4 px-10 rounded-full hover:bg-white hover:!text-black transition-all transform hover:scale-105">
                             Shop Now
-                        </a>
+                        </button>
                         <a href="contact.html"
                             class="card-3d border-2 border-white/40 !text-white font-bold py-4 px-10 rounded-full hover:bg-white hover:!text-black transition-all transform hover:scale-105">
                             Hire Me
