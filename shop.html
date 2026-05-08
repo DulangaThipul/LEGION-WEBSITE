@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="si" class="scroll-smooth">
 
 <head>
@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop - LEGION GRAFIX</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer  src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script defer  src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -47,7 +47,7 @@
         <!-- Navigation -->
         <nav class="fixed w-full z-50 glass-card transition-all duration-300" id="navbar">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-20">
+                <div class="flex items-center justify-between h-16 md:h-20">
                     <div class="flex-shrink-0">
                         <a href="index.html" class="text-3xl font-bold tracking-tighter gradient-text logo-glow"><span
                                 class="text-white">LEGION GRAFIX</span></a>
@@ -83,7 +83,7 @@
             </div>
 
             <!-- Mobile Menu -->
-            <div class="md:hidden hidden bg-black bg-opacity-95 backdrop-blur-xl border-t border-gray-800"
+            <div class="md:hidden hidden bg-black/95 backdrop-blur-2xl border-t border-gray-800 absolute w-full left-0 top-[100%] shadow-2xl z-50"
                 id="mobile-menu">
                 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     <a href="index.html"
@@ -104,214 +104,290 @@
 
         <!-- Header -->
         <header class="pt-32 pb-12 text-center bg-gradient-to-b from-dark-bg to-card-bg animate-on-scroll">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">Premium <span class="gradient-text">Assets</span></h1>
+            <h1 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-4">Premium <span class="gradient-text">Assets</span></h1>
             <p class="text-gray-400 max-w-2xl mx-auto">High-quality design resources for your next big project.</p>
         </header>
 
         <!-- Main Content -->
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <main class="max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-12">
 
             <!-- Filters -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button
-                    class="filter-btn active border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">All</button>
-                <button
-                    class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">Logos</button>
-                <button
-                    class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">Templates</button>
-                <button
-                    class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">Vectors</button>
-                <button
-                    class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all">3D
-                    Assets</button>
+            <div class="flex flex-wrap justify-center gap-4 mb-12" id="filter-buttons">
+                <button class="filter-btn active border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="All">All</button>
+                <button class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="Solo">Solo Services</button>
+                <button class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="Graphic Design">Graphic Design</button>
+                <button class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="Social Media Management">Social Media Management</button>
+                <button class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="Followers">Followers Packages</button>
             </div>
 
-            <!-- Product Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-on-scroll delay-200">
+            <div id="all-products-container" class="animate-on-scroll delay-200">
+                <!-- SECTION 1: SOLO Services -->
+                <div class="category-section mb-16" data-category-group="Solo">
+                    <h3 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">SOLO <span class="text-neon-purple">Services</span></h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Solo Product 1 -->
+                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
+                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                                <div>
+                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
+                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Social Media Post</h3>
+                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Single custom post design, 24H Delivery</p>
+                                </div>
+                                <div class="mt-auto border-t border-gray-800 pt-6">
+                                    <div class="flex flex-col gap-4">
+                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 1,000</span>
+                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Social+Media+Post+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Solo Product 2 -->
+                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
+                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                                <div>
+                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
+                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Logo Design</h3>
+                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Professional logo design</p>
+                                </div>
+                                <div class="mt-auto border-t border-gray-800 pt-6">
+                                    <div class="flex flex-col gap-4">
+                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 1,000+</span>
+                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Logo+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Solo Product 3 -->
+                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
+                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                                <div>
+                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
+                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Business Card</h3>
+                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Single Side LKR 550 / Double Side LKR 750</p>
+                                </div>
+                                <div class="mt-auto border-t border-gray-800 pt-6">
+                                    <div class="flex flex-col gap-4">
+                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 550+</span>
+                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Business+Card+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Solo Product 4 -->
+                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
+                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                                <div>
+                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
+                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Flyer Design</h3>
+                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Standard LKR 700 / With PSD File LKR 1,000</p>
+                                </div>
+                                <div class="mt-auto border-t border-gray-800 pt-6">
+                                    <div class="flex flex-col gap-4">
+                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 700+</span>
+                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Flyer+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Solo Product 5 -->
+                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
+                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                                <div>
+                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
+                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">T-Shirt Design</h3>
+                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Custom t-shirt graphic design</p>
+                                </div>
+                                <div class="mt-auto border-t border-gray-800 pt-6">
+                                    <div class="flex flex-col gap-4">
+                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 900+</span>
+                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+T-Shirt+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Solo Product 6 -->
+                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
+                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                                <div>
+                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
+                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Custom Reel</h3>
+                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Custom reel design / animation</p>
+                                </div>
+                                <div class="mt-auto border-t border-gray-800 pt-6">
+                                    <div class="flex flex-col gap-4">
+                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 1,500+</span>
+                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Custom+Reel" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECTION 2: Followers Packages -->
+                <div class="category-section mb-16" data-category-group="Followers">
+                    <h3 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">Followers <span class="text-neon-blue">Packages</span></h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <!-- Follower 1 -->
+                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Followers">
+                            <div class="w-full h-auto overflow-hidden relative bg-black/20 cursor-pointer portfolio-card">
+                                <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273492/INSTA_Followers_fhbsiv.jpg" alt="Instagram Followers" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
+                            </div>
+                            <div class="relative p-6 flex flex-col justify-between h-full">
+                                <div>
+                                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Followers Packages</div>
+                                    <h3 class="text-2xl font-bold mb-6 text-white group-hover:text-neon-blue transition-colors">Instagram Followers</h3>
+                                </div>
+                                <div class="border-t border-gray-800 pt-6 mt-auto">
+                                    <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Instagram+Followers" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)] inline-block">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Follower 2 -->
+                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Followers">
+                            <div class="w-full h-auto overflow-hidden relative bg-black/20 cursor-pointer portfolio-card">
+                                <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273491/FB_Followers_ljd7tn.jpg" alt="Facebook Followers" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
+                            </div>
+                            <div class="relative p-6 flex flex-col justify-between h-full">
+                                <div>
+                                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Followers Packages</div>
+                                    <h3 class="text-2xl font-bold mb-6 text-white group-hover:text-neon-blue transition-colors">Facebook Followers</h3>
+                                </div>
+                                <div class="border-t border-gray-800 pt-6 mt-auto">
+                                    <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Facebook+Followers" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)] inline-block">Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: Premium Packages -->
+                <div class="category-section mb-16" data-category-group="Premium">
+                    <h3 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">Premium <span class="gradient-text">Packages</span></h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
 
                 <!-- Product 1 -->
-                <div
-                    class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://i.ibb.co/Zpw55wRv/fution-x-kiyana-eke-poster-eka.jpg" alt="Product 1"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity">
+                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Graphic Design">
+                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                        <div>
+                            <div class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Most Popular</div>
+                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Graphic Design</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Starter Pack</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Logo + Business Card + 2 Social Media Posts<br><span class="text-xs text-gray-500 mt-2 block">(Without Logo & Business Card 1 Post = LKR 1000)</span></p>
                         </div>
-                        <a href="contact.html"
-                            class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue flex items-center justify-center">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Vectors</div>
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
-                            The KICK Start</h3>
-                        <div class="flex justify-between items-end mt-4">
-                            <span class="text-2xl font-bold">LKR 7,500</span>
-                            <a href="#"
-                                class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
-                                Details</a>
+                        <div class="mt-auto border-t border-gray-800 pt-6">
+                            <div class="flex flex-col gap-4">
+                                <span class="text-xl md:text-2xl font-bold text-white">LKR 3,499</span>
+                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Starter+Pack" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Product 2 -->
-                <div
-                    class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1626544827763-d516dce335ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Product 2"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <a href="contact.html"
-                            class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue flex items-center justify-center">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Templates</div>
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
-                            Social
-                            Media Bundle</h3>
-                        <div class="flex justify-between items-end mt-4">
-                            <span class="text-2xl font-bold">$29.00</span>
-                            <a href="#"
-                                class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
-                                Details</a>
+                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Graphic Design">
+                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                        <div>
+                            <div class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Best Value</div>
+                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Graphic Design</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Social Media Pro</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">7 Custom Posts + Stories + Reels</p>
+                        </div>
+                        <div class="mt-auto border-t border-gray-800 pt-6">
+                            <div class="flex flex-col gap-4">
+                                <span class="text-xl md:text-2xl font-bold text-white">LKR 9,900</span>
+                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Social+Media+Pro+Package" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Product 3 -->
-                <div
-                    class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1635322966219-b75ed372eb01?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Product 3"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <a href="contact.html"
-                            class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue flex items-center justify-center">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">3D Assets</div>
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
-                            Abstract Spheres</h3>
-                        <div class="flex justify-between items-end mt-4">
-                            <span class="text-2xl font-bold">$12.00</span>
-                            <a href="#"
-                                class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
-                                Details</a>
+                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Graphic Design">
+                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                        <div>
+                            <div class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Premium</div>
+                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Graphic Design</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Brand Empire</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Full Brand Identity + Logo + 20 Posts + Flyers</p>
+                        </div>
+                        <div class="mt-auto border-t border-gray-800 pt-6">
+                            <div class="flex flex-col gap-4">
+                                <span class="text-xl md:text-2xl font-bold text-white">LKR 19,000</span>
+                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Brand+Empire+Package" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Product 4 -->
-                <div
-                    class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Product 4"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <a href="contact.html"
-                            class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue flex items-center justify-center">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Backgrounds</div>
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
-                            Liquid
-                            Gradients</h3>
-                        <div class="flex justify-between items-end mt-4">
-                            <span class="text-2xl font-bold">$10.00</span>
-                            <a href="#"
-                                class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
-                                Details</a>
+                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Social Media Management">
+                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                        <div>
+                            <div class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Starter</div>
+                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Social Media Management</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">Basic Management</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">4 Posts per month + Followers Grow up to 1K + Monthly Report</p>
+                        </div>
+                        <div class="mt-auto border-t border-gray-800 pt-6">
+                            <div class="flex flex-col gap-4">
+                                <span class="text-xl md:text-2xl font-bold text-white">LKR 6,900</span>
+                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Basic+SMM+Management" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Product 5 -->
-                <div
-                    class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Product 5"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <a href="contact.html"
-                            class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue flex items-center justify-center">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Logos</div>
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
-                            Minimalist Logo Kit</h3>
-                        <div class="flex justify-between items-end mt-4">
-                            <span class="text-2xl font-bold">$40.00</span>
-                            <a href="#"
-                                class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
-                                Details</a>
+                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Social Media Management">
+                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                        <div>
+                            <div class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Popular</div>
+                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Social Media Management</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">Growth Package</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">10 Posts + Stories + 5K+ Followers & 1K+ Likes Engagement + Monthly Report</p>
+                        </div>
+                        <div class="mt-auto border-t border-gray-800 pt-6">
+                            <div class="flex flex-col gap-4">
+                                <span class="text-xl md:text-2xl font-bold text-white">LKR 12,800</span>
+                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+SMM+Growth+Package" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Product 6 -->
-                <div
-                    class="glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1614730341194-75c60740a2d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                            alt="Product 6"
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <a href="contact.html"
-                            class="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg hover:bg-neon-blue flex items-center justify-center">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="p-6">
-                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Textures</div>
-                        <h3 class="text-xl font-bold mb-2 text-white group-hover:text-neon-purple transition-colors">
-                            Grunge
-                            Overlays</h3>
-                        <div class="flex justify-between items-end mt-4">
-                            <span class="text-2xl font-bold">$8.00</span>
-                            <a href="#"
-                                class="text-sm text-gray-400 hover:text-white underline decoration-neon-blue underline-offset-4">View
-                                Details</a>
+                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Social Media Management">
+                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
+                        <div>
+                            <div class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Premium</div>
+                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Social Media Management</div>
+                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">Full Management Package</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">20 Posts + Stories + Reels Script + 10K+ Followers & 5K+ Likes Engagement + Full Page Management + Weekly Report</p>
+                        </div>
+                        <div class="mt-auto border-t border-gray-800 pt-6">
+                            <div class="flex flex-col gap-4">
+                                <span class="text-xl md:text-2xl font-bold text-white">LKR 25,900</span>
+                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Full+SMM+Package" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                    </div>
+                </div>
             </div>
         </main>
 
         <!-- Footer -->
-        <footer class="bg-black py-12 border-t border-gray-800">
+        <footer class="bg-black py-8 md:py-12 border-t border-gray-800 flex flex-col items-center justify-center">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h3 class="text-2xl font-bold gradient-text mb-4">LEGION GRAFIX</h3>
                 <p class="text-gray-500 text-sm">
@@ -320,9 +396,42 @@
             </div>
         </footer>
 
-        <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-        <script src="js/3d-bg.js"></script>
-        <script src="js/main.js"></script>
+        <script defer  src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+        <script defer  src="js/3d-bg.js"></script>
+        <script defer  src="js/main.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const buttons = document.querySelectorAll('.filter-btn');
+                const cards = document.querySelectorAll('.product-card');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        // Update active class
+                        buttons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+
+                        // Filter cards
+                        const filterValue = btn.getAttribute('data-filter');
+                        cards.forEach(card => {
+                            if (filterValue === 'All' || card.getAttribute('data-category') === filterValue) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+
+                        // Hide empty sections
+                        const sections = document.querySelectorAll('.category-section');
+                        if (sections.length > 0) {
+                            sections.forEach(section => {
+                                const visibleCards = Array.from(section.querySelectorAll('.product-card')).some(c => c.style.display !== 'none');
+                                section.style.display = visibleCards ? 'block' : 'none';
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
     </div> <!-- End Page Transition Wrapper -->
 </body>
 

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * MONOCHROME PRO AMOLED 3D Background
  * Black & White theme for high-end look
  */
@@ -23,7 +23,7 @@ class Background3D {
 
         this.particles = null;
         this.bokehOrbs = [];
-        this.particleCount = window.innerWidth < 768 ? 2000 : 8000; // Reduced from 4000/12000
+        this.particleCount = window.innerWidth < 768 ? 25 : 50; // Performance optimized count
 
         this.targetRotation = { x: 0, y: 0 };
         this.currentRotation = { x: 0, y: 0 };

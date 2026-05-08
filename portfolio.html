@@ -1,14 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="si" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - LEGION GRAFIX</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer  src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script defer  src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -37,7 +37,7 @@
 
         <nav class="fixed w-full z-50 glass-card transition-all duration-300" id="navbar">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-20">
+                <div class="flex items-center justify-between h-16 md:h-20">
                     <div class="flex-shrink-0">
                         <a href="index.html" class="text-3xl font-bold tracking-tighter gradient-text logo-glow"><span
                                 class="text-white">LEGION GRAFIX</span></a>
@@ -75,7 +75,7 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div class="md:hidden hidden bg-black bg-opacity-95 backdrop-blur-xl border-t border-gray-800" id="mobile-menu">
+    <div class="md:hidden hidden bg-black/95 backdrop-blur-2xl border-t border-gray-800 absolute w-full left-0 top-[100%] shadow-2xl z-50" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="index.html"
                 class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
@@ -94,190 +94,148 @@
 
     <header class="pt-32 pb-12 text-center">
         <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">Selected Works</h1>
-        <p class="text-xl text-gray-400 max-w-2xl mx-auto">මේ හැම Design එකක්ම FREE කරල දීපුව සහ නිකන් යාළුවන්ට හදපුවා
-            Paid Works දාල නෑ. </p>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">Premium Quality Designs for Sri Lankan Businesses</p>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 animate-on-scroll delay-200">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="columns-1 sm:columns-2 lg:columns-3 gap-8">
 
-            <!-- 1. Logo Designing -->
-            <div
-                class="relative group overflow-hidden rounded-2xl md:col-span-2 h-[400px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771260833922-68dff358-9639-4c9f-85b9-c9d90e058502.jpeg"
-                        alt="Logo Designing"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 1 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268146/Sprite_x079nm.png" alt="Sprite Advertisement" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div
-                    class="absolute bottom-6 left-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 class="text-3xl font-bold text-white mb-1">Logo Designing</h3>
-                    <p class="text-neon-blue text-sm uppercase tracking-[0.2em]">Brand Identity</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">Sprite Advertisement</h3>
+                    <p class="text-neon-blue text-sm uppercase tracking-widest">Product Ad</p>
                 </div>
             </div>
 
-            <!-- 2. Business Cards -->
-            <div
-                class="relative group overflow-hidden rounded-2xl h-[400px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771260968821-8f567ef3-f05a-4b52-8d50-4cf01c48e3aa.jpeg"
-                        alt="Business Cards"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 2 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268143/Honor_ynbi6y.png" alt="Honor X9D Launch" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div
-                    class="absolute bottom-6 left-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    <h3 class="text-2xl font-bold text-white mb-1">Business Cards</h3>
-                    <p class="text-neon-purple text-sm uppercase tracking-[0.2em]">Corporate Identity</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">Honor X9D Launch</h3>
+                    <p class="text-neon-purple text-sm uppercase tracking-widest">Tech Branding</p>
                 </div>
             </div>
 
-            <!-- 3. Youtube Thumbnails -->
-            <div
-                class="relative group overflow-hidden rounded-2xl h-[350px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771260566298-e6b24f27-ac9b-44a7-8f55-7b12af60ddaf.jpeg"
-                        alt="Youtube Thumbnails"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 3 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268151/Burgers_New_ucnyn3.png" alt="KFC BBQ Burger" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <h3 class="text-xl font-bold text-white mb-1">Youtube Thumbnails</h3>
-                    <p class="text-neon-blue text-xs uppercase tracking-wider">Content Creation</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">KFC BBQ Burger</h3>
+                    <p class="text-neon-blue text-sm uppercase tracking-widest">Food & Beverage</p>
                 </div>
             </div>
 
-            <!-- 4. Social Media Posts -->
-            <div
-                class="relative group overflow-hidden rounded-2xl h-[350px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771260885796-266716d4-fca3-4ca0-8c61-9df4fe68e0f5.jpeg"
-                        alt="Social Media Posts"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 4 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268150/Yokohma_Tyre_ot2qtj.png" alt="Fineway Yokohama" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <h3 class="text-xl font-bold text-white mb-1">Social Media Posts</h3>
-                    <p class="text-neon-purple text-xs uppercase tracking-wider">Social Graphics</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">Fineway Yokohama</h3>
+                    <p class="text-neon-purple text-sm uppercase tracking-widest">Automotive</p>
                 </div>
             </div>
 
-            <!-- 5. Social Media Business Flyers -->
-            <div
-                class="relative group overflow-hidden rounded-2xl h-[350px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771260731778-927be07e-e60e-4c6b-8ea4-a31bd8612386.jpeg"
-                        alt="Social Media Business Flyers"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 5 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/T-Shirt_Design_wu4334.jpg" alt="LEON T-Shirt Design" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <h3 class="text-xl font-bold text-white mb-1">Business Flyers</h3>
-                    <p class="text-neon-blue text-xs uppercase tracking-wider">Marketing</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">LEON T-Shirt Design</h3>
+                    <p class="text-neon-blue text-sm uppercase tracking-widest">Merchandise</p>
                 </div>
             </div>
 
-            <!-- 6. Personal Flyers -->
-            <div
-                class="relative group overflow-hidden rounded-2xl md:col-span-2 h-[450px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771260778991-8bb49cc7-034b-41b3-913a-a01ee3cee050.jpeg"
-                        alt="Personal Flyers"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 6 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/Branding_kwmtgk.jpg" alt="FusionX Digital Agency" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <h3 class="text-3xl font-bold text-white mb-1">Personal Flyers</h3>
-                    <p class="text-neon-purple text-sm uppercase tracking-wider">Creative Design</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">FusionX Digital Agency</h3>
+                    <p class="text-neon-purple text-sm uppercase tracking-widest">Brand Identity</p>
                 </div>
             </div>
 
-            <!-- 7. Charity Banners -->
-            <div
-                class="relative group overflow-hidden rounded-2xl h-[450px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771260923527-c5dcfa01-55cb-4686-bac9-34cdea77b666.jpeg"
-                        alt="Charity Banners"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 7 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269456/Business_Card_fglera.jpg" alt="Legion Crew Services" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <h3 class="text-2xl font-bold text-white mb-1">Charity Banners</h3>
-                    <p class="text-neon-blue text-sm uppercase tracking-wider">Event Graphics</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">Legion Crew Services</h3>
+                    <p class="text-neon-blue text-sm uppercase tracking-widest">Brand Identity</p>
                 </div>
             </div>
 
-            <!-- 8. T Shirt Designs -->
-            <div
-                class="relative group overflow-hidden rounded-2xl h-[400px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771261012337-758bd90a-6144-42d8-a7ec-0796c28a580c.jpeg"
-                        alt="T Shirt Designs"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 8 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269456/Burger_Knight_tcpsat.jpg" alt="Burger Knights" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <h3 class="text-2xl font-bold text-white mb-1">T-Shirt Designs</h3>
-                    <p class="text-neon-purple text-sm uppercase tracking-wider">Merchandise</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">Burger Knights</h3>
+                    <p class="text-neon-purple text-sm uppercase tracking-widest">Food & Beverage</p>
                 </div>
             </div>
 
-            <!-- 9. Business Banners -->
-            <div
-                class="relative group overflow-hidden rounded-2xl md:col-span-2 h-[400px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-4">
-                    <img src="https://image2url.com/r2/default/images/1771261051577-6ecf2d43-0144-415d-86bc-f63a6fef89ea.jpeg"
-                        alt="Business Banners"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110">
+            <!-- Card 9 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/Charity_pwuim1.jpg" alt="Dharma Deshana Event" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none">
-                </div>
-                <div class="absolute bottom-6 left-6">
-                    <h3 class="text-3xl font-bold text-white mb-1">Business Banners</h3>
-                    <p class="text-neon-blue text-sm uppercase tracking-wider">Large Scale Design</p>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">Dharma Deshana Event</h3>
+                    <p class="text-neon-blue text-sm uppercase tracking-widest">Event Graphics</p>
                 </div>
             </div>
 
-            <!-- 10. Example Works -->
-            <div
-                class="relative group overflow-hidden rounded-2xl lg:col-span-3 h-[500px] cursor-pointer card-3d glass-card portfolio-card">
-                <div class="w-full h-full bg-black/40 flex items-center justify-center p-8">
-                    <img src="https://image2url.com/r2/default/images/1771261101797-17071ffe-3e56-43b0-8f5a-8b5847ce2c16.jpeg"
-                        alt="Example Works"
-                        class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-105">
+            <!-- Card 10 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268153/Suv_Tyre_p3w2mm.png" alt="CEAT SecuraDrive" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
                 </div>
-                <div
-                    class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-90 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">CEAT SecuraDrive</h3>
+                    <p class="text-neon-purple text-sm uppercase tracking-widest">Automotive</p>
                 </div>
-                <div class="absolute bottom-10 left-10">
-                    <h3 class="text-4xl font-black text-white mb-2 uppercase tracking-tighter">Selected Case <span
-                            class="gradient-text">Studies</span></h3>
-                    <p class="text-gray-300 text-lg">A collection of various high-end project demonstrations.</p>
+            </div>
+
+            <!-- Card 11 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269457/Neel_Sir_clhl6i.jpg" alt="Neel Sir ICT Classes" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">Neel Sir ICT Classes</h3>
+                    <p class="text-neon-blue text-sm uppercase tracking-widest">Education Marketing</p>
+                </div>
+            </div>
+
+            <!-- Card 12 -->
+            <div class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
+                <div class="w-full h-auto bg-black/20">
+                    <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268144/Kevin_Sir_NEW_fthrxo.png" alt="Kevin Sir Online Classes" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
+                    <h3 class="text-2xl font-bold text-white mb-1">Kevin Sir Online Classes</h3>
+                    <p class="text-neon-purple text-sm uppercase tracking-widest">Education Marketing</p>
                 </div>
             </div>
 
         </div>
     </main>
 
-    <footer class="bg-black py-12 border-t border-gray-800">
+    <footer class="bg-black py-8 md:py-12 border-t border-gray-800 flex flex-col items-center justify-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h3 class="text-2xl font-bold gradient-text mb-4">LEGION GRAFIX</h3>
             <p class="text-gray-500 text-sm">
@@ -285,9 +243,9 @@
             </p>
         </div>
     </footer>
-    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-    <script src="js/3d-bg.js"></script>
-    <script src="js/main.js"></script>
+    <script defer  src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script defer  src="js/3d-bg.js"></script>
+    <script defer  src="js/main.js"></script>
     </div> <!-- End Page Transition Wrapper -->
 </body>
 

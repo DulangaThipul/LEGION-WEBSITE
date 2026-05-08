@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="si" class="scroll-smooth">
 
 <head>
@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - LEGION GRAFIX</title>
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer  src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script defer  src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -40,7 +40,7 @@
         <!-- Navigation -->
         <nav class="fixed w-full z-50 glass-card transition-all duration-300" id="navbar">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-20">
+                <div class="flex items-center justify-between h-16 md:h-20">
                     <div class="flex-shrink-0">
                         <a href="index.html" class="text-3xl font-bold tracking-tighter gradient-text logo-glow"><span
                                 class="text-white">LEGION GRAFIX</span></a>
@@ -78,7 +78,7 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div class="md:hidden hidden bg-black bg-opacity-95 backdrop-blur-xl border-t border-gray-800" id="mobile-menu">
+    <div class="md:hidden hidden bg-black/95 backdrop-blur-2xl border-t border-gray-800 absolute w-full left-0 top-[100%] shadow-2xl z-50" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="index.html"
                 class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
@@ -104,14 +104,14 @@
                 <div
                     class="absolute inset-0 bg-neon-blue bg-opacity-20 rounded-2xl transform translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-300">
                 </div>
-                <img src="https://i.ibb.co/QjnhnH79/Whats-App-Image-2025-12-08-at-8-08-10-PM.jpg"
+                <img loading="lazy" decoding="async"  src="https://i.ibb.co/QjnhnH79/Whats-App-Image-2025-12-08-at-8-08-10-PM.jpg"
                     alt="Designer Portrait"
-                    class="relative rounded-2xl shadow-2xl w-full grayscale-0 md:grayscale hover:grayscale-0 transition-all duration-500">
+                    class="relative rounded-2xl shadow-2xl w-full grayscale-0 md:grayscale hover:grayscale-0 transition-all duration-500 max-w-full h-auto">
             </div>
 
             <!-- Content -->
             <div class="w-full md:w-1/2">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">Behind the <span class="gradient-text">Pixel</span></h1>
+                <h1 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-6">Behind the <span class="gradient-text">Pixel</span></h1>
                 <h2 class="text-2xl text-white font-semibold mb-4">Hello, I'm <span
                         class="text-neon-purple">Dulanga</span>.</h2>
                 <p class="text-gray-400 mb-6 leading-relaxed text-lg">
@@ -166,7 +166,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-black py-12 border-t border-gray-800">
+    <footer class="bg-black py-8 md:py-12 border-t border-gray-800 flex flex-col items-center justify-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h3 class="text-2xl font-bold gradient-text mb-4">LEGION GRAFIX</h3>
             <p class="text-gray-500 text-sm">
@@ -175,9 +175,9 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-    <script src="js/3d-bg.js"></script>
-    <script src="js/main.js"></script>
+    <script defer  src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+    <script defer  src="js/3d-bg.js"></script>
+    <script defer  src="js/main.js"></script>
     </div> <!-- End Page Transition Wrapper -->
 </body>
 

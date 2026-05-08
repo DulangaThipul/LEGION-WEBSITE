@@ -138,6 +138,7 @@ body::after {
 
 .logo-glow {
     animation: logo-pulse 3s infinite ease-in-out;
+    will-change: filter, text-shadow;
 }
 
 @keyframes logo-pulse {
@@ -193,6 +194,11 @@ p:hover {
 .card-3d {
     transition: transform 0.1s ease-out;
     transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.product-card, .portfolio-card {
+    will-change: transform, opacity;
 }
 
 /* Global Monochrome to Color effect for images */
@@ -206,6 +212,13 @@ section .group:hover img,
 section .card-3d:hover img,
 section img:hover {
     filter: grayscale(0%);
+}
+
+@media (hover: none) {
+    .card-3d { transform: none !important; }
+    .group-hover\:scale-110 { 
+        transform: none !important; 
+    }
 }
 
 /* --- ENHANCED BLOBS --- */
@@ -222,6 +235,10 @@ section img:hover {
     mix-blend-mode: screen;
     pointer-events: none;
     will-change: transform;
+}
+
+@media (max-width: 768px) {
+    .blob { display: none; }
 }
 
 .blob-1 {

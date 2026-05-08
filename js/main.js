@@ -74,15 +74,19 @@ document.addEventListener('DOMContentLoaded', () => {
     setVh();
     window.addEventListener('resize', setVh);
 
-    // Standard Scroll Progress for multi-page mode
+    // Standard Scroll Progress for multi-page mode (Optimized with RAF)
+    let scrollRafId = null;
     window.addEventListener('scroll', () => {
-        const progressBar = document.getElementById('scroll-progress');
-        if (progressBar) {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            progressBar.style.width = scrolled + "%";
-        }
+        if (scrollRafId) cancelAnimationFrame(scrollRafId);
+        scrollRafId = requestAnimationFrame(() => {
+            const progressBar = document.getElementById('scroll-progress');
+            if (progressBar) {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + "%";
+            }
+        });
     });
 
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
@@ -100,15 +104,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mobile Menu Toggle (if we add one later, though current nav is simple)
     // For now, let's add a subtle parallax effect to the hero section on scroll
+    // Parallax effect for hero section on scroll (Optimized with RAF)
+    let parallaxRafId = null;
     window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        const heroSection = document.querySelector('section');
-        if (heroSection) {
-            const limit = heroSection.offsetTop + heroSection.offsetHeight;
-            if (scrolled > heroSection.offsetTop && scrolled <= limit) {
-                heroSection.style.backgroundPositionY = (scrolled * 0.5) + 'px';
+        if (parallaxRafId) cancelAnimationFrame(parallaxRafId);
+        parallaxRafId = requestAnimationFrame(() => {
+            const scrolled = window.scrollY;
+            const heroSection = document.querySelector('section');
+            if (heroSection) {
+                const limit = heroSection.offsetTop + heroSection.offsetHeight;
+                if (scrolled > heroSection.offsetTop && scrolled <= limit) {
+                    heroSection.style.backgroundPositionY = (scrolled * 0.5) + 'px';
+                }
             }
-        }
+        });
     });
 
     // Mobile Menu Toggle
@@ -172,30 +181,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function initPortfolioPopup() {
         const popup = document.createElement('div');
         popup.id = 'portfolio-popup';
-        popup.className = 'fixed inset-0 z-[10000] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-500 backdrop-blur-md bg-black/60';
+        popup.className = 'fixed inset-0 z-[10000] flex items-center justify-center p-4 md:p-8 opacity-0 pointer-events-none transition-all duration-500 backdrop-blur-xl bg-black/90';
         popup.innerHTML = `
-            <div class="relative max-w-md w-full glass-card p-8 rounded-3xl border border-white/20 shadow-2xl transform scale-90 translate-z-0 transition-all duration-500 group-active:scale-95" id="popup-content">
-                <button id="close-popup" class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors">
+            <div class="relative max-w-7xl w-full h-full flex items-center justify-center transform scale-90 translate-z-0 transition-all duration-500" id="popup-content">
+                <button id="close-popup" class="absolute top-4 right-4 z-50 bg-black/50 hover:bg-white hover:text-black p-3 rounded-full text-white transition-all duration-300">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
-                <div class="text-center">
-                    <div class="w-16 h-16 bg-neon-blue/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8 text-neon-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-relaxed">
-                        Photos View කරන්න ඕනි පහසුකම පස්සෙ Site Update එකකින් දෙන්නම්
-                    </h3>
-                    <div class="h-px w-12 bg-white/20 mx-auto mb-6"></div>
-                    <p class="text-gray-400 text-sm mb-2 uppercase tracking-widest">Contact for more information</p>
-                    <a href="mailto:legionzinfo@gmail.com" class="text-neon-blue font-bold hover:underline">legionzinfo@gmail.com</a>
-                </div>
+                <img id="popup-img" src="" alt="Portfolio View" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl">
             </div>
         `;
         document.body.appendChild(popup);
 
         const content = document.getElementById('popup-content');
+        const popupImg = document.getElementById('popup-img');
 
-        const showPopup = () => {
+        const showPopup = (imgSrc) => {
+            popupImg.src = imgSrc;
             popup.classList.remove('opacity-0', 'pointer-events-none');
             content.style.transform = 'perspective(1000px) rotateX(0deg) scale(1)';
         };
@@ -203,16 +204,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const hidePopup = () => {
             popup.classList.add('opacity-0', 'pointer-events-none');
             content.style.transform = 'perspective(1000px) rotateX(20deg) scale(0.9)';
+            setTimeout(() => { popupImg.src = ''; }, 500);
         };
 
         const portfolioItems = document.querySelectorAll('.portfolio-card');
         portfolioItems.forEach(item => {
-            item.addEventListener('click', showPopup);
+            item.addEventListener('click', (e) => {
+                const img = item.querySelector('img');
+                if(img) {
+                    showPopup(img.src);
+                }
+            });
         });
 
         document.getElementById('close-popup').addEventListener('click', hidePopup);
         popup.addEventListener('click', (e) => {
-            if (e.target === popup) hidePopup();
+            if (e.target === popup || e.target === content) hidePopup();
         });
 
         // Add Escape key to close
@@ -222,4 +229,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initPortfolioPopup();
+
+    // --- LENIS SMOOTH SCROLL (Performance Optimized) ---
+    if (typeof Lenis !== 'undefined' && window.innerWidth > 768) {
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    }
 });
