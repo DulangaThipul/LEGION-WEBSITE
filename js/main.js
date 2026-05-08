@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPortfolioPopup();
 
     // --- LENIS SMOOTH SCROLL (Performance Optimized) ---
-    const lenis = (typeof Lenis !== 'undefined' && window.innerWidth > 768) 
+    const lenis = (typeof Lenis !== 'undefined' && window.innerWidth > 768 && !document.body.classList.contains('spa-mode')) 
         ? new Lenis({ duration: 1.2 }) 
         : null;
 

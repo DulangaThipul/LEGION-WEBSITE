@@ -70,117 +70,114 @@ class FullPageScroll {
 
         // Keyboard Support
         window.addEventListener('keydown', (e) => this.handleKey(e));
+
+        // Discrete Section Scrolling (One scroll = One page jump)
+        let lastScrollTime = 0;
+        const scrollCooldown = 800; // ms between scrolls
+
+        window.addEventListener('wheel', (e) => {
+            if (window.innerWidth <= 768) return;
+            if (!document.body.classList.contains('spa-mode')) return;
+
+            const currentSecEl = this.sections[this.currentSection];
+            const isScrollable = currentSecEl.id === 'section-portfolio' || currentSecEl.id === 'section-assets';
+
+            if (isScrollable) {
+                const { scrollTop, scrollHeight, clientHeight } = currentSecEl;
+                // Use a larger threshold (10px) to avoid precision issues
+                const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
+                const isAtTop = scrollTop <= 10;
+
+                // If scrolling down and we have space to scroll down, let it happen
+                if (e.deltaY > 0 && !isAtBottom) return;
+                // If scrolling up and we have space to scroll up, let it happen
+                if (e.deltaY < 0 && !isAtTop) return;
+            }
+
+            // If we are here, we either aren't in a scrollable section 
+            // OR we've hit the boundary of one. Perform jump.
+            e.preventDefault();
+            const now = Date.now();
+            if (now - lastScrollTime < scrollCooldown) return;
+
+            if (Math.abs(e.deltaY) < 5) return; // Very low threshold
+
+            if (e.deltaY > 0) {
+                this.goToSection(this.currentSection + 1);
+                lastScrollTime = now;
+            } else {
+                this.goToSection(this.currentSection - 1);
+                lastScrollTime = now;
+            }
+        }, { passive: false });
     }
 
     resetSections() {
         this.sections.forEach((sec, idx) => {
-            sec.style.transition = 'none';
             sec.style.display = 'block';
-            sec.style.willChange = 'transform, opacity, filter';
+            sec.style.position = 'fixed';
+            sec.style.top = '0';
+            sec.style.left = '0';
+            sec.style.width = '100%';
+            sec.style.height = '100%';
+            sec.style.overflowY = (sec.id === 'section-portfolio' || sec.id === 'section-assets') ? 'auto' : 'hidden';
+            sec.style.overscrollBehavior = 'contain';
+            sec.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+            
             if (idx === 0) {
                 sec.style.transform = 'translateY(0)';
-                sec.style.zIndex = '20';
                 sec.style.opacity = '1';
+                sec.style.pointerEvents = 'auto';
+                sec.style.zIndex = '20';
             } else {
                 sec.style.transform = 'translateY(100%)';
-                sec.style.zIndex = '0';
-                sec.style.opacity = '1';
+                sec.style.opacity = '0';
+                sec.style.pointerEvents = 'none';
+                sec.style.zIndex = '10';
             }
         });
+        this.currentSection = 0;
         if (window.bg3d) window.bg3d.updateSection(0);
         this.updateNav();
     }
 
     goToSection(index) {
-        if (this.isScrolling || index < 0 || index >= this.totalSections || index === this.currentSection) return;
+        if (index < 0 || index >= this.totalSections || index === this.currentSection) return;
 
-        this.isScrolling = true;
-        const direction = index > this.currentSection ? 'down' : 'up';
-        const prevIndex = this.currentSection;
         this.currentSection = index;
 
-        const prevSec = this.sections[prevIndex];
-        const nextSec = this.sections[index];
-
-        // 1. Prepare Next Section (Immediate State)
-        nextSec.style.transition = 'none';
-        nextSec.style.zIndex = '20';
-        nextSec.style.opacity = '1';
-
-        // 2. Prepare Prev Section (Immediate State)
-        prevSec.style.zIndex = '10'; // Behind new one
-
-        // 3. Reset Others (Optimization)
         this.sections.forEach((sec, idx) => {
-            if (idx !== index && idx !== prevIndex) {
-                sec.style.zIndex = '0';
+            if (idx < index) {
+                // Above: Slide up and fade out
+                sec.style.transform = 'translateY(-100%)';
+                sec.style.opacity = '0';
+                sec.style.pointerEvents = 'none';
+                sec.style.zIndex = '10';
+                sec.style.overflowY = 'hidden';
+            } else if (idx === index) {
+                // Current: Move to center and fade in
+                sec.style.transform = 'translateY(0)';
+                sec.style.opacity = '1';
+                sec.style.pointerEvents = 'auto';
+                sec.style.zIndex = '50'; // Higher z-index for active
+                sec.style.overflowY = (sec.id === 'section-portfolio' || sec.id === 'section-assets') ? 'auto' : 'hidden';
+            } else {
+                // Below: Stay down
                 sec.style.transform = 'translateY(100%)';
+                sec.style.opacity = '0';
+                sec.style.pointerEvents = 'none';
+                sec.style.zIndex = '10';
+                sec.style.overflowY = 'hidden';
             }
         });
 
-        // 4. Force Reflow
-        void nextSec.offsetWidth;
-
-        // 5. Animate
-        if (direction === 'down') {
-            // Stack Effect: Next comes up over Prev
-            nextSec.style.transform = 'translateY(100%)'; // Start position
-            void nextSec.offsetWidth; // Reflow
-
-            // Move Next UP
-            nextSec.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
-            nextSec.style.transform = 'translateY(0%)';
-
-            // Move Prev Back slightly (Parallax)
-            prevSec.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
-            prevSec.style.transform = 'translateY(-20%) scale(0.9)';
-
-        } else {
-            // Un-Stack Effect: Prev slides down revealing Next
-            // Prev is strictly ON TOP
-            prevSec.style.zIndex = '20';
-            nextSec.style.zIndex = '10';
-
-            // Ensure Next is in background position
-            nextSec.style.transform = 'translateY(-20%) scale(0.9)';
-            void nextSec.offsetWidth;
-
-            // Slide Prev DOWN
-            prevSec.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
-            prevSec.style.transform = 'translateY(100%)';
-
-            // Bring Next Forward
-            nextSec.style.transition = 'transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1)';
-            nextSec.style.transform = 'translateY(0%) scale(1)';
-        }
-
-        // Apply extreme Transition Blur (Reduced for performance)
-        prevSec.style.transition += ', filter 0.8s ease, opacity 0.8s ease';
-        prevSec.style.filter = 'blur(40px)';
-        prevSec.style.opacity = '0.5';
-        nextSec.style.filter = 'blur(0)';
-        nextSec.style.opacity = '1';
-
+        // Sync 3D Background
         if (window.bg3d) window.bg3d.updateSection(index);
-
-        setTimeout(() => {
-            this.isScrolling = false;
-            // Clean up old sections
-            this.sections.forEach((sec, idx) => {
-                if (idx !== index) {
-                    sec.style.filter = 'none';
-                }
-            });
-        }, 800);
-
         this.updateNav();
-
-        // Update Scroll Progress
-        const progress = (index / (this.sections.length - 1)) * 100;
-        const progressBar = document.getElementById('scroll-progress');
-        if (progressBar) progressBar.style.width = `${progress}%`;
-
-        this.triggerSectionAnimations(index);
+        
+        // Update URL hash without jumping
+        const sectionId = this.sections[index].id;
+        history.replaceState(null, null, `#${sectionId}`);
     }
 
     triggerSectionAnimations(index) {
@@ -221,63 +218,15 @@ class FullPageScroll {
     }
 
     handleWheel(e) {
-        // If content in section is scrollable, allow it until limits.
-        const currentSecEl = this.sections[this.currentSection];
-        // Check if cursor is over a scrollable inner container
-        // Actually, let's keep it simple first. Fullpage scroll hijack.
-        // If user wants internal scroll, we need logic:
+        // Let native scroll happen
+        // e.preventDefault();
+        return;
+    }
 
-        // Heuristic: If deltaY > 0 (down) and (scrollTop + clientHeight < scrollHeight), let it scroll.
-        // Else, trigger section change.
-
-        // Find scrollable child?
-        // Let's assume the .fp-section itself or a child might scroll. 
-        // My HTML structure has .overflow-y-auto on some sections.
-
-        // Is the event target inside a scrollable element?
-        let target = e.target;
-        let scrollable = null;
-
-        // Traverse up to find scrollable parent
-        while (target && target !== document.body) {
-            const style = window.getComputedStyle(target);
-            // Check if element has scroll capability
-            if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
-                // Check if it actually overflows
-                if (target.scrollHeight > target.clientHeight) {
-                    scrollable = target;
-                    break;
-                }
-            }
-            target = target.parentElement;
-        }
-
-        if (scrollable) {
-            // Check boundaries more precisely
-            // deltaY > 0 means scrolling down. 
-            // We only trigger next section if we are ALREADY at the bottom.
-            const isAtBottom = scrollable.scrollHeight - scrollable.scrollTop <= scrollable.clientHeight + 2;
-            const isAtTop = scrollable.scrollTop <= 0;
-
-            if (e.deltaY > 0) { // Scrolling down
-                if (!isAtBottom) return; // Let the internal scroll happen
-            } else { // Scrolling up
-                if (!isAtTop) return; // Let the internal scroll happen
-            }
-        }
-
-        // Hijack for Page Transition
-        e.preventDefault();
-        if (this.isScrolling) return;
-
-        // Use a slightly higher threshold to distinguish from slight jitters
-        if (Math.abs(e.deltaY) < 15) return;
-
-        if (e.deltaY > 0) {
-            this.goToSection(this.currentSection + 1);
-        } else {
-            this.goToSection(this.currentSection - 1);
-        }
+    handleTouchMove(e) {
+        // Let native scroll happen
+        // e.preventDefault();
+        return;
     }
 
     handleTouchStart(e) {
@@ -319,6 +268,7 @@ class FullPageScroll {
             }
         }
 
+        // e.preventDefault();
         if (Math.abs(diff) > 40) { // Slightly less sensitive touch to avoid accidental jumps
             if (diff > 0) {
                 this.goToSection(this.currentSection + 1);
