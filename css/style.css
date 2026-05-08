@@ -366,6 +366,34 @@ section img:hover {
     .animate-bounce div {
         height: 30px !important;
     }
+
+    /* FIX: Remove scroll snap and force auto-scroll on mobile */
+    html, body {
+        scroll-snap-type: none !important;
+        overflow-y: auto !important;
+        height: auto !important;
+    }
+    
+    #fullpage-container {
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .fp-section {
+        position: relative !important;
+        scroll-snap-align: none !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+    }
+    
+    .fp-section.prev-section {
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+    }
 }
 
 /* --- PRELOADER (GLITCH & STATUS) --- */

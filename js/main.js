@@ -231,8 +231,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initPortfolioPopup();
 
     // --- LENIS SMOOTH SCROLL (Performance Optimized) ---
-    if (typeof Lenis !== 'undefined' && window.innerWidth > 768) {
-        const lenis = new Lenis();
+    const lenis = (typeof Lenis !== 'undefined' && window.innerWidth > 768) 
+        ? new Lenis({ duration: 1.2 }) 
+        : null;
+
+    if (lenis) {
         function raf(time) {
             lenis.raf(time);
             requestAnimationFrame(raf);

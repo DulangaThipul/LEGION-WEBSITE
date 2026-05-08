@@ -48,19 +48,22 @@ class FullPageScroll {
     init() {
         this.resetSections();
 
-        // Desktop Wheel Support
+        // Desktop Wheel Support (Disable on mobile)
         window.addEventListener('wheel', (e) => {
+            if (window.innerWidth <= 768) return;
             // Check if we are in SPA mode
             if (!document.body.classList.contains('spa-mode')) return;
             this.handleWheel(e);
         }, { passive: false });
 
-        // Touch Support
+        // Touch Support (Disable on mobile to prevent accidental page jumps)
         window.addEventListener('touchstart', (e) => {
+            if (window.innerWidth <= 768) return;
             if (!document.body.classList.contains('spa-mode')) return;
             this.handleTouchStart(e);
         });
         window.addEventListener('touchmove', (e) => {
+            if (window.innerWidth <= 768) return;
             if (!document.body.classList.contains('spa-mode')) return;
             this.handleTouchMove(e);
         }, { passive: false });
