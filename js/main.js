@@ -17,14 +17,21 @@ const observer = new IntersectionObserver((entries) => {
 document.addEventListener('DOMContentLoaded', () => {
     // --- PRELOADER REMOVAL ---
     const preloader = document.getElementById('preloader');
+    const hidePreloader = () => {
+        if (preloader && !preloader.classList.contains('loaded')) {
+            preloader.classList.add('loaded');
+            document.body.classList.remove('overflow-hidden');
+        }
+    };
+
     if (preloader) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                preloader.classList.add('loaded');
-                // Re-enable scroll/interaction if needed
-                document.body.classList.remove('overflow-hidden');
-            }, 2000); // Give it at least 2 seconds for the "wow" factor
-        });
+        if (document.readyState === 'complete') {
+            setTimeout(hidePreloader, 1000);
+        } else {
+            window.addEventListener('load', () => setTimeout(hidePreloader, 1000));
+        }
+        // Fallback after 5 seconds
+        setTimeout(hidePreloader, 5000);
     }
 
 

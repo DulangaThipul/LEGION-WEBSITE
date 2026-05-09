@@ -256,9 +256,7 @@ section img:hover {
     will-change: transform;
 }
 
-@media (max-width: 768px) {
-    .blob { display: none; }
-}
+
 
 .blob-1 {
     top: -15%;
@@ -344,62 +342,7 @@ section img:hover {
     text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
 }
 
-/* --- MOBILE SPECIFIC OVERRIDES --- */
-@media (max-width: 768px) {
-    .fp-section {
-        backdrop-filter: blur(40px) saturate(180%);
-        -webkit-backdrop-filter: blur(40px) saturate(180%);
-        background: rgba(0, 0, 0, 0.4) !important;
-        /* Darker background on mobile to help performance */
-    }
 
-    h1 {
-        font-size: 2.5rem !important;
-    }
-
-    h2 {
-        font-size: 2rem !important;
-    }
-
-    .container {
-        padding-top: 6rem !important;
-        /* pt-24 approx */
-        padding-bottom: 5rem !important;
-    }
-
-    #navbar {
-        height: 4.5rem;
-    }
-
-    #mobile-menu {
-        border-bottom-left-radius: 2rem;
-        border-bottom-right-radius: 2rem;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    }
-
-    .animate-bounce p {
-        font-size: 8px !important;
-        letter-spacing: 0.3em !important;
-    }
-
-    .animate-bounce div {
-        height: 30px !important;
-    }
-
-    /* Ensure SPA mode works on mobile */
-    #fullpage-container {
-        height: 100vh !important;
-        height: calc(var(--vh, 1vh) * 100) !important;
-        overflow: hidden !important;
-        position: fixed !important;
-    }
-
-    .fp-section {
-        position: fixed !important;
-        height: 100vh !important;
-        height: calc(var(--vh, 1vh) * 100) !important;
-    }
-}
 
 /* --- PRELOADER (GLITCH & STATUS) --- */
 #preloader {
