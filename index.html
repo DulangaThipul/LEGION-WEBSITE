@@ -44,6 +44,12 @@
         };
         setVH();
         window.addEventListener('resize', setVH);
+
+        // Protect Images
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('dragstart', e => {
+            if (e.target.nodeName === 'IMG') e.preventDefault();
+        });
     </script>
     <div id="scroller-proxy" style="height: 350vh; width: 1px; position: absolute; top: 0; left: 0; pointer-events: none; z-index: -1;"></div>
     <!-- Preloader -->

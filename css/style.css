@@ -224,6 +224,9 @@ p:hover {
 section img {
     filter: grayscale(100%);
     transition: filter 0.5s ease, transform 0.5s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none; /* Passes clicks to parent div */
 }
 
 section div:hover>img,
