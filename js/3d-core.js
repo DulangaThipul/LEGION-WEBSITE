@@ -57,7 +57,7 @@ class FullPageScroll {
             if (!document.body.classList.contains('spa-mode')) return;
             
             const currentSecEl = this.sections[this.currentSection];
-            const isScrollable = currentSecEl.id === 'section-portfolio' || currentSecEl.id === 'section-assets';
+            const isScrollable = currentSecEl.id === 'section-portfolio' || currentSecEl.id === 'section-assets' || currentSecEl.id === 'section-about' || currentSecEl.id === 'section-contact';
 
             if (isScrollable) {
                 const { scrollTop, scrollHeight, clientHeight } = currentSecEl;
@@ -104,7 +104,7 @@ class FullPageScroll {
             sec.style.left = '0';
             sec.style.width = '100%';
             sec.style.height = '100%';
-            sec.style.overflowY = (sec.id === 'section-portfolio' || sec.id === 'section-assets') ? 'auto' : 'hidden';
+            sec.style.overflowY = (sec.id === 'section-portfolio' || sec.id === 'section-assets' || sec.id === 'section-about' || sec.id === 'section-contact') ? 'auto' : 'hidden';
             sec.style.overscrollBehavior = 'contain';
             sec.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
             
@@ -141,7 +141,7 @@ class FullPageScroll {
                 sec.style.opacity = '1';
                 sec.style.pointerEvents = 'auto';
                 sec.style.zIndex = '50';
-                sec.style.overflowY = (sec.id === 'section-portfolio' || sec.id === 'section-assets') ? 'auto' : 'hidden';
+                sec.style.overflowY = (sec.id === 'section-portfolio' || sec.id === 'section-assets' || sec.id === 'section-about' || sec.id === 'section-contact') ? 'auto' : 'hidden';
             } else {
                 sec.style.transform = 'translateY(100%)';
                 sec.style.opacity = '0';
