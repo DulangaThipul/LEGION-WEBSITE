@@ -479,6 +479,29 @@ section img:hover {
     animation: scanline 3s linear infinite;
 }
 
+/* Mobile Preloader Adjustment */
+@media (max-width: 768px) {
+    .glitch-text {
+        font-size: 2.5rem !important;
+        letter-spacing: 0.3em !important;
+    }
+    .glitch-subtext {
+        font-size: 0.6rem !important;
+        letter-spacing: 0.8em !important;
+    }
+    .status-text {
+        font-size: 8px !important;
+        max-width: 200px !important;
+    }
+    .preloader-bars {
+        margin-top: 1.5rem !important;
+        gap: 10px !important;
+    }
+    .preloader-bars .bar {
+        height: 12px !important;
+    }
+}
+
 @keyframes glitch-anim {
     0% { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
     5% { clip: rect(70px, 9999px, 71px, 0); transform: skew(0.85deg); }
