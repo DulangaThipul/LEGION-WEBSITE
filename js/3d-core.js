@@ -94,6 +94,112 @@ class FullPageScroll {
 
         // Keyboard Support
         window.addEventListener('keydown', (e) => this.handleKey(e));
+
+        // Mouse Drag Support
+        let isMouseDown = false;
+        let startY = 0;
+        let startScrollTop = 0;
+        let dragTarget = null;
+        let hasDragged = false;
+
+        window.addEventListener('mousedown', (e) => {
+            if (!document.body.classList.contains('spa-mode')) return;
+            if (e.button !== 0) return; // Only left click
+            
+            // Do not drag if clicking form controls or interactive elements
+            if (e.target.closest('a, button, input, textarea, select, [role="button"], #skip-preloader-btn, #portfolio-popup')) return;
+
+            isMouseDown = true;
+            startY = e.clientY;
+            hasDragged = false;
+            
+            // Find scrollable parent if any
+            let target = e.target;
+            dragTarget = null;
+            while (target && target !== document.body) {
+                const style = window.getComputedStyle(target);
+                if (style.overflowY === 'auto' || style.overflowY === 'scroll') {
+                    if (target.scrollHeight > target.clientHeight) {
+                        dragTarget = target;
+                        startScrollTop = target.scrollTop;
+                        break;
+                    }
+                }
+                target = target.parentElement;
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isMouseDown) return;
+            
+            const currentY = e.clientY;
+            const diff = startY - currentY;
+
+            if (Math.abs(diff) > 15) {
+                hasDragged = true;
+                document.body.style.userSelect = 'none';
+                document.body.style.cursor = 'grabbing';
+            }
+
+            if (dragTarget) {
+                // Scroll the inner container
+                dragTarget.scrollTop = startScrollTop + diff;
+                
+                // If we hit boundaries, transition sections if drag is large enough
+                const isAtBottom = dragTarget.scrollHeight - dragTarget.scrollTop <= dragTarget.clientHeight + 5;
+                const isAtTop = dragTarget.scrollTop <= 5;
+                
+                if (Math.abs(diff) > 120) {
+                    const now = Date.now();
+                    if (now - this.lastActionTime >= this.actionCooldown) {
+                        if (diff > 0 && isAtBottom) {
+                            this.goToSection(this.currentSection + 1);
+                            isMouseDown = false;
+                            this.lastActionTime = now;
+                        } else if (diff < 0 && isAtTop) {
+                            this.goToSection(this.currentSection - 1);
+                            isMouseDown = false;
+                            this.lastActionTime = now;
+                        }
+                    }
+                }
+            } else {
+                // Dragging main/non-scrollable page to jump section
+                if (Math.abs(diff) > 80) {
+                    const now = Date.now();
+                    if (now - this.lastActionTime >= this.actionCooldown) {
+                        if (diff > 0) {
+                            this.goToSection(this.currentSection + 1);
+                        } else {
+                            this.goToSection(this.currentSection - 1);
+                        }
+                        isMouseDown = false;
+                        this.lastActionTime = now;
+                    }
+                }
+            }
+        });
+
+        const stopDrag = (e) => {
+            if (isMouseDown) {
+                isMouseDown = false;
+                document.body.style.userSelect = '';
+                document.body.style.cursor = '';
+                
+                // If the user actually dragged, prevent click events from firing
+                if (hasDragged && e) {
+                    const preventClick = (event) => {
+                        event.stopImmediatePropagation();
+                        window.removeEventListener('click', preventClick, true);
+                    };
+                    window.addEventListener('click', preventClick, true);
+                }
+            }
+            dragTarget = null;
+        };
+
+        window.addEventListener('mouseup', stopDrag);
+        window.addEventListener('mouseleave', stopDrag);
     }
 
     resetSections() {

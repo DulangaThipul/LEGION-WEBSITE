@@ -25,6 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (preloader) {
+        // Skip Button Click Event
+        const skipBtn = document.getElementById('skip-preloader-btn');
+        if (skipBtn) {
+            skipBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hidePreloader();
+            });
+        }
+
         if (document.readyState === 'complete') {
             setTimeout(hidePreloader, 1000);
         } else {
@@ -164,8 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const content = document.getElementById('popup-content');
         const popupImg = document.getElementById('popup-img');
+        let hideTimeoutId = null;
 
         const showPopup = (imgSrc) => {
+            if (hideTimeoutId) {
+                clearTimeout(hideTimeoutId);
+                hideTimeoutId = null;
+            }
             popupImg.src = imgSrc;
             popup.classList.remove('opacity-0', 'pointer-events-none');
             content.style.transform = 'perspective(1000px) rotateX(0deg) scale(1)';
@@ -174,7 +188,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const hidePopup = () => {
             popup.classList.add('opacity-0', 'pointer-events-none');
             content.style.transform = 'perspective(1000px) rotateX(20deg) scale(0.9)';
-            setTimeout(() => { popupImg.src = ''; }, 500);
+            if (hideTimeoutId) {
+                clearTimeout(hideTimeoutId);
+            }
+            hideTimeoutId = setTimeout(() => { 
+                popupImg.src = ''; 
+                hideTimeoutId = null;
+            }, 500);
         };
 
         const portfolioItems = document.querySelectorAll('.portfolio-card');

@@ -360,6 +360,20 @@ section img:hover {
     overflow: hidden;
 }
 
+#skip-preloader-btn {
+    position: absolute !important;
+    bottom: 2rem !important;
+    right: 2rem !important;
+    z-index: 10001 !important;
+}
+
+@media (max-width: 768px) {
+    #skip-preloader-btn {
+        bottom: 1.5rem !important;
+        right: 1.5rem !important;
+    }
+}
+
 #preloader.loaded {
     opacity: 0;
     filter: blur(50px);
