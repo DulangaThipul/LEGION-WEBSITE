@@ -1,1016 +1,855 @@
 <!DOCTYPE html>
-<html lang="si">
-
-<head> <link rel="icon" type="image/png" href="favicon.png">
-    <meta name="google-site-verification" content="5CTsPb2s78pqwHxE7eeE4LxaV8yzri67RDrxpTIwAQM" />
-    <meta name="keywords" content="Legion Graphics, legion graphics, graphic design Sri Lanka, video editing, branding, fb followers">
-    <meta name="description" content="Welcome to Legion Graphics. We provide high-quality graphic design, branding, and video editing services to elevate your business.">
+<html lang="en" class="scroll-smooth bg-black">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGION GRAFIX - 3D Experience</title>
-    <link rel="preload" as="image" href="https://i.ibb.co/QjnhnH79/Whats-App-Image-2025-12-08-at-8-08-10-PM.jpg">
-    <script defer src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        .filter-btn.active {
-            background-color: #bc13fe;
-            color: white;
-            border-color: #bc13fe;
-        }
-
-        /* Custom Scrollbars for Specific Sections */
-        #section-portfolio::-webkit-scrollbar,
-        #section-assets::-webkit-scrollbar,
-        #section-about::-webkit-scrollbar,
-        #section-contact::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        #section-portfolio::-webkit-scrollbar-track,
-        #section-assets::-webkit-scrollbar-track,
-        #section-about::-webkit-scrollbar-track,
-        #section-contact::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        #section-portfolio::-webkit-scrollbar-thumb,
-        #section-assets::-webkit-scrollbar-thumb,
-        #section-about::-webkit-scrollbar-thumb,
-        #section-contact::-webkit-scrollbar-thumb {
-            background: #bc13fe;
-            /* Neon Purple */
-            border-radius: 10px;
-        }
-
-        #section-portfolio::-webkit-scrollbar-thumb:hover,
-        #section-assets::-webkit-scrollbar-thumb:hover,
-        #section-about::-webkit-scrollbar-thumb:hover,
-        #section-contact::-webkit-scrollbar-thumb:hover {
-            background: #ffffff;
-        }
-    </style>
+    <title>LEGION GRAFIX | Cinematic Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        neonPurple: '#bc13fe',
+                        neonBlue: '#00f3ff',
+                        neonPink: '#ff007f',   
+                        neonGreen: '#00ff9d',  
+                    },
                     fontFamily: {
                         sans: ['Outfit', 'sans-serif'],
                     },
-                    colors: {
-                        'neon-blue': '#ffffff',
-                        'neon-purple': '#888888',
-                        'dark-bg': '#000000',
-                        'card-bg': '#0a0a0a'
+                    animation: {
+                        'spin-slow': 'spin 4s linear infinite',
+                        'player-bump': 'bump 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
                     },
+                    keyframes: {
+                        bump: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' },
+                        }
+                    }
                 }
             }
         }
     </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* Lenis Smooth Scroll Setup */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        
+        body { background-color: #000; color: #fff; overflow-x: hidden; margin: 0; }
+
+        /* Cinematic Preloader */
+        #preloader {
+            position: fixed; inset: 0; background: #000; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* Hovering Text Animation */
+        @keyframes float-hover {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
+            100% { transform: translateY(0px); }
+        }
+        .hover-text-effect {
+            animation: float-hover 4s ease-in-out infinite;
+            background: linear-gradient(to bottom, #ffffff, #b3b3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 10px 20px rgba(188, 19, 254, 0.4));
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background-color: rgba(10, 10, 10, 0.6); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: #bc13fe; box-shadow: 0 0 20px rgba(188, 19, 254, 0.3); transform: translateY(-5px);
+        }
+
+        .gsap-reveal { opacity: 0; transform: translateY(40px); }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bc13fe; }
+
+        /* Photo Viewer (Lightbox) */
+        #lightbox {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000;
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #lightbox.active { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90%; max-height: 90vh; border-radius: 12px; box-shadow: 0 0 40px rgba(188,19,254,0.3); transform: scale(0.9); transition: transform 0.3s ease; }
+        #lightbox.active img { transform: scale(1); }
+    </style>
 </head>
+<body class="antialiased selection:bg-neonPurple selection:text-white">
 
-<body class="text-white font-sans spa-mode">
-    <script>
-        // VH Fix for mobile and desktop
-        const setVH = () => {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        };
-        setVH();
-        window.addEventListener('resize', setVH);
+<!-- Audio Player -->
+<audio id="bgMusic" autoplay preload="auto">
+  <source src="bye.mp3" type="audio/mpeg">
+</audio>
 
-        // Protect Images
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.addEventListener('dragstart', e => {
-            if (e.target.nodeName === 'IMG') e.preventDefault();
-        });
-    </script>
-    <div id="scroller-proxy"
-        style="height: 350vh; width: 1px; position: absolute; top: 0; left: 0; pointer-events: none; z-index: -1;">
-    </div>
-    <!-- Preloader -->
+    <!-- Cinematic Preloader -->
     <div id="preloader">
-        <div class="preloader-inner">
-            <div class="glitch-container">
-                <div class="glitch-text" data-text="LEGION">LEGION</div>
-                <div class="glitch-subtext">GRAFIX</div>
-            </div>
-            <div class="loading-status">
-                <div class="loading-dots">
-                    <span></span><span></span><span></span>
-                </div>
-                <div class="status-text">Design Beyond Your Expectation.</div>
-            </div>
-            <div class="preloader-bars">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
+        <div class="overflow-hidden">
+            <h1 id="intro-text" class="text-4xl md:text-6xl font-black tracking-widest text-white translate-y-full">LEGION GRAFIX</h1>
         </div>
-        <div class="preloader-scanline"></div>
-        <!-- Skip Intro Button -->
-        <button id="skip-preloader-btn" class="absolute bottom-8 right-8 z-[10001] px-5 py-2.5 rounded-full border border-white/20 bg-black/40 text-xs text-white/70 hover:text-white hover:border-white/80 hover:bg-black/80 transition-all duration-300 tracking-wider uppercase font-semibold flex items-center gap-2 backdrop-blur-sm cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]">
-            Skip Intro
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
-            </svg>
-        </button>
+        <div class="w-48 h-1 bg-white/20 mt-6 rounded-full overflow-hidden">
+            <div id="intro-bar" class="w-full h-full bg-neonPurple -translate-x-full"></div>
+        </div>
     </div>
 
-    <div id="scroll-progress"></div>
-    <!-- Background Elements -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full" style="z-index: -1;"></canvas>
-
-    <!-- Navigation (Fixed) -->
-    <nav class="fixed w-full z-[100] glass-card transition-all duration-300 top-0" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 md:h-20">
-                <div class="flex-shrink-0 cursor-pointer" onclick="scrollToSection(0)">
-                    <span class="text-3xl font-bold tracking-tighter gradient-text logo-glow">LEGION GRAFIX</span>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <button onclick="scrollToSection(0)"
-                            class="nav-link text-white hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</button>
-                        <button onclick="scrollToSection(2)"
-                            class="nav-link text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</button>
-                        <button onclick="scrollToSection(1)"
-                            class="nav-link text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Portfolio</button>
-                        <button onclick="scrollToSection(3)"
-                            class="nav-link text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">About</button>
-                        <a href="contact.html"
-                            class="bg-transparent border-2 border-white hover:bg-white text-white hover:text-black px-6 py-2 rounded-full text-sm font-extrabold transition-all transform hover:scale-105">Contact
-                            Me</a>
-                    </div>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" id="mobile-menu-btn"
-                        class="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none">
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <!-- Audio Permission Popup -->
+    <div id="audioPopup" class="fixed inset-0 z-[9998] flex items-center justify-center bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-500">
+        <div class="glass-card p-8 rounded-3xl text-center max-w-sm mx-4 transform scale-90 transition-transform duration-500" id="audioPopupCard">
+            <div class="w-16 h-16 mx-auto bg-neonPurple/20 rounded-full flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(188,19,254,0.4)]">
+                <svg class="w-8 h-8 text-neonPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-black text-white mb-2">Enable Audio Experience?</h3>
+            <p class="text-gray-400 text-sm mb-8">For the best cinematic experience, we recommend turning on the sound.</p>
+            <div class="flex gap-4 justify-center">
+                <button id="btnAudioDecline" class="px-6 py-2.5 rounded-xl font-bold text-gray-400 hover:text-white hover:bg-white/10 transition-all cursor-pointer">Later</button>
+                <button id="btnAudioAccept" class="px-6 py-2.5 bg-neonPurple text-white rounded-xl font-bold shadow-[0_0_15px_rgba(188,19,254,0.4)] hover:shadow-[0_0_25px_rgba(188,19,254,0.8)] hover:scale-105 transition-all cursor-pointer">Play Audio</button>
             </div>
         </div>
+    </div>
 
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-black/95 backdrop-blur-2xl border-t border-gray-800 absolute w-full left-0 top-[100%] shadow-2xl z-50"
-            id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
-                <button onclick="scrollToSection(0); closeMobileMenu()"
-                    class="text-white block px-3 py-2 text-base font-medium w-full">Home</button>
-                <button onclick="scrollToSection(2); closeMobileMenu()"
-                    class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium w-full">Shop</button>
-                <button onclick="scrollToSection(1); closeMobileMenu()"
-                    class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium w-full">Portfolio</button>
-                <button onclick="scrollToSection(3); closeMobileMenu()"
-                    class="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium w-full">About</button>
-                <a href="contact.html"
-                    class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-black mx-4 my-2 py-2 rounded-full text-base font-bold block text-center transition-all">Contact</a>
+    <!-- Photo Viewer Lightbox -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-4xl hover:text-neonPurple transition-colors">&times;</button>
+        <img id="lightbox-img" src="" alt="Full View" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Media Player Wrapper -->
+    <div id="mediaPlayerWrapper" class="fixed bottom-6 right-6 z-50 transition-all duration-500">
+        <!-- Media Player Widget -->
+        <div id="mediaPlayerWidget" class="p-2 rounded-[2.5rem] bg-black/40 backdrop-blur-xl border border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] transition-all duration-500 ease-in-out flex items-center gap-3 text-white hover:border-neonPurple hover:shadow-[0_10px_30px_rgba(188,19,254,0.3),inset_0_1px_1px_rgba(255,255,255,0.2)] cursor-default origin-center">
+            
+            <!-- Album Art -->
+            <div class="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border border-white/30 shadow-[0_0_15px_rgba(0,0,0,0.8)] animate-spin-slow" id="albumArtContainer">
+                <img id="albumArt" src="" alt="Album Art" class="w-full h-full object-cover">
+                <!-- Center hole for vinyl look -->
+                <div class="absolute inset-0 m-auto w-3 h-3 bg-black rounded-full border border-white/20 shadow-inner"></div>
+            </div>
+
+            <!-- Song Info -->
+            <div id="songInfoContainer" class="flex flex-col justify-center overflow-hidden whitespace-nowrap min-w-[100px]">
+                <span id="songTitle" class="text-sm font-black text-white drop-shadow-md">Loading...</span>
+                <span id="songArtist" class="text-[10px] font-bold text-neonPurple uppercase tracking-widest drop-shadow-md mt-0.5">Artist</span>
+            </div>
+            
+            <div class="w-px h-8 bg-gradient-to-b from-transparent via-white/30 to-transparent mx-1"></div>
+
+            <!-- Controls -->
+            <div class="flex items-center gap-1 pr-2">
+                <button id="audioControlBtn" class="p-2 rounded-full hover:bg-white/10 hover:text-neonPurple transition-all cursor-pointer" aria-label="Toggle Audio">
+                    <svg id="audioIconPlay" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <svg id="audioIconPause" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </button>
+                <button id="audioNextBtn" class="p-2 rounded-full hover:bg-white/10 hover:text-neonBlue transition-all cursor-pointer" aria-label="Next Song">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 9l4 3-4 3V9zm6-1v6m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </button>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <!-- Fullpage Container -->
-    <div id="fullpage-container">
+    <!-- Main Content Wrapper -->
+    <div id="main-content" class="opacity-0">
+        
+        <!-- Sticky Navbar -->
+        <nav class="fixed w-full z-50 glass-card px-6 py-4 flex justify-between items-center top-0 border-t-0 border-l-0 border-r-0" id="navbar">
+            <div class="text-2xl font-black tracking-tighter text-white">LEGION GRAFIX</div>
+            <ul class="hidden md:flex space-x-8 text-sm font-semibold text-gray-300">
+                <li><a href="#home" class="hover:text-neonBlue transition-colors">Home</a></li>
+                <li><a href="#portfolio" class="hover:text-neonPurple transition-colors">Work</a></li>
+                <li><a href="#shop" class="hover:text-neonBlue transition-colors">Shop</a></li>
+                <li><a href="#about" class="hover:text-neonPurple transition-colors">About</a></li>
+            </ul>
+            <a href="https://wa.me/94783040717" target="_blank" class="px-6 py-2 bg-neonPurple text-white rounded-full font-bold shadow-[0_0_15px_rgba(188,19,254,0.4)] hover:shadow-[0_0_25px_rgba(188,19,254,0.8)] transition-all">
+                Hire Me
+            </a>
+        </nav>
 
-        <!-- SECTION 1: HOME -->
-        <section class="fp-section active-section flex flex-col items-center justify-center w-full h-full pt-20 pb-16 px-4"
-            id="section-home">
-
-            <div class="container mx-auto px-4 relative z-10 text-center max-w-4xl">
-                <div class="animate-fade-in">
-                    <h2 class="text-white uppercase tracking-[0.4em] text-[10px] md:text-sm font-bold mb-3 opacity-70">
-                        LEGION GRAFIX</h2>
-                    <h1 id="main-logo"
-                        class="text-3xl sm:text-5xl md:text-7xl flex-wrap break-words w-full font-bold mb-4 md:mb-8 leading-tight tracking-tight logo-glow flex flex-col items-center">
-                        <span id="logo-legion" class="inline-block text-white">Design Beyond</span>
-                        <span id="logo-grafix" class="gradient-text inline-block">Your Expectation.</span>
-                    </h1>
-                    <p class="text-gray-400 text-xs sm:text-sm md:text-base max-w-xl mx-auto mb-6 md:mb-10 leading-relaxed font-light">
-                        Premium design assets and futuristic brand identities for the next generation of digital
-                        creators.
-                    </p>
-                    <div class="flex flex-row gap-4 justify-center items-center w-full max-w-[340px] md:max-w-none mx-auto">
-                        <button onclick="scrollToSection(2)"
-                            class="card-3d border-2 border-white/40 !text-white font-bold py-2.5 px-5 md:py-4 md:px-10 text-xs md:text-base rounded-full min-h-[44px] flex-1 md:flex-none flex items-center justify-center text-center hover:bg-white hover:!text-black transition-all transform hover:scale-105">
-                            Shop Now
-                        </button>
-                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+hire+you" target="_blank"
-                            class="card-3d border-2 border-white/40 !text-white font-bold py-2.5 px-5 md:py-4 md:px-10 text-xs md:text-base rounded-full min-h-[44px] flex-1 md:flex-none flex items-center justify-center text-center hover:bg-white hover:!text-black transition-all transform hover:scale-105">
-                            Hire Me
-                        </a>
-                    </div>
-                    <div class="mt-6 md:mt-10">
-                        <p class="text-[9px] md:text-[10px] text-gray-500 uppercase tracking-[0.3em]">
-                            Designed BY <span class="text-neon-blue font-bold">Dulanga</span>
-                        </p>
-                    </div>
-                </div>
+        <!-- 1. HERO SECTION (Three.js Wave of Particles) -->
+        <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden bg-black z-10 pt-16">
+            
+            <!-- Three.js Canvas Background -->
+            <canvas id="particle-wave-canvas" class="absolute inset-0 z-0 pointer-events-auto"></canvas>
+            
+            <!-- Hovering Text Foreground -->
+            <div class="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none px-4">
+                <h1 class="hover-text-effect text-[15vw] md:text-[10vw] font-black tracking-tighter leading-none text-center m-0 p-0">
+                    LEGION
+                    <span class="block -mt-4 md:-mt-8">GRAFIX</span>
+                </h1>
             </div>
-
-            <!-- STATS (Inside Home) -->
-            <div class="container mx-auto px-4 relative z-10 mt-6 md:mt-12 mb-8 max-w-4xl">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12 text-center">
-                    <div class="stat-item animate-on-scroll">
-                        <div class="text-2xl md:text-5xl font-black gradient-text mb-1">2+</div>
-                        <p class="text-gray-400 uppercase tracking-[0.2em] text-[8px] md:text-[10px] font-bold">Years Experience</p>
-                    </div>
-                    <div class="stat-item animate-on-scroll delay-100">
-                        <div class="text-2xl md:text-5xl font-black gradient-text mb-1">50+</div>
-                        <p class="text-gray-400 uppercase tracking-[0.2em] text-[8px] md:text-[10px] font-bold">Projects Completed</p>
-                    </div>
-                    <div class="stat-item animate-on-scroll delay-200">
-                        <div class="text-2xl md:text-5xl font-black gradient-text mb-1">10+</div>
-                        <p class="text-gray-400 uppercase tracking-[0.2em] text-[8px] md:text-[10px] font-bold">Happy Clients</p>
-                    </div>
-                    <div class="stat-item animate-on-scroll delay-300">
-                        <div class="text-2xl md:text-5xl font-black gradient-text mb-1">24H</div>
-                        <p class="text-gray-400 uppercase tracking-[0.2em] text-[8px] md:text-[10px] font-bold">Delivery</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="absolute left-0 w-full text-center animate-bounce z-20 pointer-events-none"
-                style="bottom: 8px;">
-                <p
-                    class="text-[10px] tracking-[0.5em] text-white/80 uppercase font-black drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-                    Scroll to explore</p>
-                <div
-                    class="w-[2px] h-10 bg-gradient-to-b from-white via-white/50 to-transparent mx-auto shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            
+            <!-- Bottom CTA Button -->
+            <div class="absolute bottom-12 z-20 text-center w-full hero-content">
+                <p class="text-white font-bold tracking-[0.4em] uppercase text-xs md:text-sm mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,1)] pointer-events-none">Design Beyond Your Expectation</p>
+                <div>
+                    <a href="#portfolio" class="inline-block px-10 py-3.5 bg-white text-black font-black rounded-full hover:bg-neonBlue transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(0,243,255,0.6)] transform hover:-translate-y-1">Scroll to Explore</a>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2: PORTFOLIO (Cloned from portfolio.html) -->
-        <section
-            class="fp-section overflow-y-auto w-full h-auto min-h-full flex flex-col break-words items-center justify-start"
-            id="section-portfolio">
-            <div class="container mx-auto px-4 py-6 md:px-8 md:py-12 md:pt-28 md:pb-20 relative z-10 w-full">
-                <header class="text-center mb-10 shrink-0">
-                    <h2
-                        class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-black mb-4 uppercase tracking-tighter">
-                        Selected <span class="gradient-text">Works</span></h2>
-                    <p class="text-gray-400 max-w-lg mx-auto text-sm md:text-base">Premium Quality Designs for Sri
-                        Lankan Businesses</p>
-                </header>
-
-                <div class="w-full max-w-6xl mx-auto pb-32">
-                    <div class="columns-1 sm:columns-2 lg:columns-3 gap-8">
-                        <!-- Card 1 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268146/Sprite_x079nm.png"
-                                    alt="Sprite Advertisement"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">Sprite Advertisement</h3>
-                                <p class="text-neon-blue text-sm uppercase tracking-widest">Product Ad</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268143/Honor_ynbi6y.png"
-                                    alt="Honor X9D Launch"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">Honor X9D Launch</h3>
-                                <p class="text-neon-purple text-sm uppercase tracking-widest">Tech Branding</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268151/Burgers_New_ucnyn3.png"
-                                    alt="KFC BBQ Burger"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">KFC BBQ Burger</h3>
-                                <p class="text-neon-blue text-sm uppercase tracking-widest">Food & Beverage</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268150/Yokohma_Tyre_ot2qtj.png"
-                                    alt="Fineway Yokohama"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">Fineway Yokohama</h3>
-                                <p class="text-neon-purple text-sm uppercase tracking-widest">Automotive</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/T-Shirt_Design_wu4334.jpg"
-                                    alt="LEON T-Shirt Design"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">LEON T-Shirt Design</h3>
-                                <p class="text-neon-blue text-sm uppercase tracking-widest">Merchandise</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 6 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/Branding_kwmtgk.jpg"
-                                    alt="FusionX Digital Agency"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">FusionX Digital Agency</h3>
-                                <p class="text-neon-purple text-sm uppercase tracking-widest">Brand Identity</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 7 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269456/Business_Card_fglera.jpg"
-                                    alt="Legion Crew Services"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">Legion Crew Services</h3>
-                                <p class="text-neon-blue text-sm uppercase tracking-widest">Brand Identity</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 8 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269456/Burger_Knight_tcpsat.jpg"
-                                    alt="Burger Knights"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">Burger Knights</h3>
-                                <p class="text-neon-purple text-sm uppercase tracking-widest">Food & Beverage</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 9 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/Charity_pwuim1.jpg"
-                                    alt="Dharma Deshana Event"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">Dharma Deshana Event</h3>
-                                <p class="text-neon-blue text-sm uppercase tracking-widest">Event Graphics</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 10 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268153/Suv_Tyre_p3w2mm.png"
-                                    alt="CEAT SecuraDrive"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">CEAT SecuraDrive</h3>
-                                <p class="text-neon-purple text-sm uppercase tracking-widest">Automotive</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 11 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269457/Neel_Sir_clhl6i.jpg"
-                                    alt="Neel Sir ICT Classes"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">Neel Sir ICT Classes</h3>
-                                <p class="text-neon-blue text-sm uppercase tracking-widest">Education Marketing</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 12 -->
-                        <div
-                            class="relative group rounded-2xl overflow-hidden card-3d cursor-pointer glass-card portfolio-card break-inside-avoid mb-8">
-                            <div class="w-full h-auto bg-black/20">
-                                <img loading="lazy" decoding="async"
-                                    src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268144/Kevin_Sir_NEW_fthrxo.png"
-                                    alt="Kevin Sir Online Classes"
-                                    class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent flex flex-col justify-end p-6 pointer-events-none">
-                                <h3 class="text-2xl font-bold text-white mb-1">Kevin Sir Online Classes</h3>
-                                <p class="text-neon-purple text-sm uppercase tracking-widest">Education Marketing</p>
-                            </div>
-                        </div>
+        <!-- 2. Portfolio Section -->
+        <section id="portfolio" class="py-24 relative z-10 bg-[#050505] border-t border-white/5">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 gsap-reveal">
+                    <h2 class="text-4xl md:text-5xl font-black mb-4">Selected <span class="text-neonPurple">Works</span></h2>
+                    <p class="text-gray-400">Click on any image to view in full size.</p>
+                </div>
+                
+                <div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6">
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268146/Sprite_x079nm.png')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268146/Sprite_x079nm.png" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268143/Honor_ynbi6y.png')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268143/Honor_ynbi6y.png" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268151/Burgers_New_ucnyn3.png')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268151/Burgers_New_ucnyn3.png" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268150/Yokohma_Tyre_ot2qtj.png')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268150/Yokohma_Tyre_ot2qtj.png" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/T-Shirt_Design_wu4334.jpg')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/T-Shirt_Design_wu4334.jpg" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/Branding_kwmtgk.jpg')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/Branding_kwmtgk.jpg" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269456/Business_Card_fglera.jpg')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269456/Business_Card_fglera.jpg" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269456/Burger_Knight_tcpsat.jpg')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269456/Burger_Knight_tcpsat.jpg" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/Charity_pwuim1.jpg')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269455/Charity_pwuim1.jpg" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268153/Suv_Tyre_p3w2mm.png')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268153/Suv_Tyre_p3w2mm.png" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269457/Neel_Sir_clhl6i.jpg')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778269457/Neel_Sir_clhl6i.jpg" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
+                    </div>
+                    <div class="relative group rounded-2xl overflow-hidden glass-card break-inside-avoid mb-6 gsap-reveal cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268144/Kevin_Sir_NEW_fthrxo.png')">
+                        <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778268144/Kevin_Sir_NEW_fthrxo.png" class="w-full h-auto object-cover block group-hover:scale-105 transition-transform duration-500 bg-black/40">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 3: SHOP (Cloned from shop.html) -->
-        <section
-            class="fp-section overflow-y-auto w-full h-auto min-h-full flex flex-col break-words items-center justify-start"
-            id="section-assets">
-            <div class="container mx-auto px-4 py-6 md:px-8 md:py-12 md:pt-28 md:pb-20 relative z-10 w-full">
-                <header class="text-center mb-10 shrink-0">
-                    <h2
-                        class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-black mb-4 uppercase tracking-tighter">
-                        Premium <span class="gradient-text">Assets</span></h2>
-                    <p class="text-gray-400 max-w-lg mx-auto text-sm md:text-base">High-quality design resources for
-                        your next big project.</p>
-                </header>
-
-                <!-- Filters -->
-                <div class="flex flex-wrap justify-center gap-4 mb-12" id="filter-buttons">
-                    <button
-                        class="filter-btn active border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all"
-                        data-filter="All">All</button>
-                    <button
-                        class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all"
-                        data-filter="Solo">Solo Services</button>
-                    <button
-                        class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all"
-                        data-filter="Graphic Design">Graphic Design</button>
-                    <button
-                        class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all"
-                        data-filter="Social Media Management">Social Media Management</button>
-                    <button
-                        class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all"
-                        data-filter="Followers">Followers Packages</button>
+        <!-- 3. Shop Section -->
+        <section id="shop" class="py-24 relative z-10 bg-[#0a0a0a]">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-10 gsap-reveal">
+                    <h2 class="text-4xl md:text-5xl font-black mb-4">Premium <span class="text-white">Assets</span></h2>
+                    <p class="text-gray-400">High-quality design resources neatly categorized for you.</p>
                 </div>
 
-                <div id="all-products-container">
-                    <!-- SECTION 1: SOLO Services -->
-                    <div class="category-section mb-16" data-category-group="Solo">
-                        <h3
-                            class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">
-                            SOLO <span class="text-neon-purple">Services</span></h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <!-- Solo Product 1 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Solo">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">
-                                            Solo Services</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            Social Media Post</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Single custom post design,
-                                            24H Delivery</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 1,000</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Social+Media+Post+Design"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="flex flex-wrap justify-center gap-4 mb-20 gsap-reveal">
+                    <button class="filter-btn text-white opacity-100 border-b-2 border-white px-4 py-2 font-bold transition-all" data-filter="All">View All</button>
+                    <button class="filter-btn text-neonPink opacity-50 hover:opacity-100 px-4 py-2 font-bold transition-all" data-filter="Solo">Solo Services</button>
+                    <button class="filter-btn text-neonPurple opacity-50 hover:opacity-100 px-4 py-2 font-bold transition-all" data-filter="Graphic Design">Graphic Design</button>
+                    <button class="filter-btn text-neonBlue opacity-50 hover:opacity-100 px-4 py-2 font-bold transition-all" data-filter="SMM">Social Media Management</button>
+                    <button class="filter-btn text-neonGreen opacity-50 hover:opacity-100 px-4 py-2 font-bold transition-all" data-filter="Followers">Followers Packages</button>
+                </div>
 
-                            <!-- Solo Product 2 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Solo">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">
-                                            Solo Services</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            Logo Design</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Professional logo design
-                                        </p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 1,000+</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Logo+Design"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Solo Product 3 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Solo">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">
-                                            Solo Services</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            Business Card</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Single Side LKR 550 /
-                                            Double Side LKR 750</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 550+</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Business+Card+Design"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Solo Product 4 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Solo">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">
-                                            Solo Services</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            Flyer Design</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Standard LKR 700 / With
-                                            PSD File LKR 1,000</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 700+</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Flyer+Design"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Solo Product 5 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Solo">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">
-                                            Solo Services</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            T-Shirt Design</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Custom t-shirt graphic
-                                            design</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 900+</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+T-Shirt+Design"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Solo Product 6 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Solo">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">
-                                            Solo Services</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            Custom Reel</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Custom reel design /
-                                            animation</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 1,500+</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Custom+Reel"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Solo (Pink) -->
+                <div class="category-wrapper mb-24" data-category="Solo">
+                    <div class="text-center mb-10 gsap-reveal"><h3 class="inline-block text-3xl font-black text-neonPink border-b-2 border-neonPink/30 pb-2">SOLO Services</h3></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Social Media Post</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Single custom post design, 24H Delivery.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 1,000</span><a href="https://wa.me/94783040717?text=Hi, I want a Social Media Post" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Logo Design</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Professional logo design.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 1,000+</span><a href="https://wa.me/94783040717?text=Hi, I want a Logo Design" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Business Card</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Single LKR 550 / Double LKR 750.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 550+</span><a href="https://wa.me/94783040717?text=Hi, I want a Business Card" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Flyer Design</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Standard LKR 700 / With PSD LKR 1,000.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 700+</span><a href="https://wa.me/94783040717" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">T-Shirt Design</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Custom graphic design.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 900+</span><a href="https://wa.me/94783040717" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Custom Reel</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Design & animation.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 1,500+</span><a href="https://wa.me/94783040717" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- SECTION 2: Followers Packages -->
-                    <div class="category-section mb-16" data-category-group="Followers">
-                        <h3
-                            class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">
-                            Followers <span class="text-neon-blue">Packages</span></h3>
-                        <div class="grid grid-cols-2 gap-8 max-w-4xl mx-auto">
-                            <!-- Follower 1 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d flex flex-col"
-                                data-category="Followers">
-                                <div class="w-full overflow-hidden relative bg-black/20 cursor-pointer portfolio-card">
-                                    <img loading="lazy" decoding="async"
-                                        src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273492/INSTA_Followers_fhbsiv.jpg"
-                                        alt="Instagram Followers"
-                                        class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
-                                </div>
-                                <div class="p-6 flex flex-col flex-grow justify-between bg-black/40">
-                                    <div class="mb-4">
-                                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-1">
-                                            Followers Packages</div>
-                                        <h3
-                                            class="text-xl font-bold text-white group-hover:text-neon-blue transition-colors">
-                                            Instagram Followers</h3>
-                                    </div>
-                                    <div class="pt-4 border-t border-white/10">
-                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Instagram+Followers"
-                                            target="_blank"
-                                            class="w-full text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full flex items-center justify-center font-bold transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy
-                                            Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Follower 2 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d flex flex-col"
-                                data-category="Followers">
-                                <div class="w-full overflow-hidden relative bg-black/20 cursor-pointer portfolio-card">
-                                    <img loading="lazy" decoding="async"
-                                        src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273491/FB_Followers_ljd7tn.jpg"
-                                        alt="Facebook Followers"
-                                        class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700">
-                                </div>
-                                <div class="p-6 flex flex-col flex-grow justify-between bg-black/40">
-                                    <div class="mb-4">
-                                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-1">
-                                            Followers Packages</div>
-                                        <h3
-                                            class="text-xl font-bold text-white group-hover:text-neon-blue transition-colors">
-                                            Facebook Followers</h3>
-                                    </div>
-                                    <div class="pt-4 border-t border-white/10">
-                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Facebook+Followers"
-                                            target="_blank"
-                                            class="w-full text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full flex items-center justify-center font-bold transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy
-                                            Now</a>
-                                    </div>
-                                </div>
+                <!-- Graphic Design (Purple) -->
+                <div class="category-wrapper mb-24" data-category="Graphic Design">
+                    <div class="text-center mb-10 gsap-reveal"><h3 class="inline-block text-3xl font-black text-neonPurple border-b-2 border-neonPurple/30 pb-2">Graphic Design Packages</h3></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal hover:border-neonPurple hover:shadow-[0_0_20px_rgba(188,19,254,0.2)]">
+                            <div class="bg-neonPurple text-white text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Popular</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Starter Pack</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">Logo + Business Card + 2 Social Media Posts.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 3,499</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonPurple/10 text-neonPurple hover:bg-neonPurple hover:text-white border border-neonPurple rounded-xl font-bold transition-all">Select Package</a>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- SECTION 3: Premium Packages -->
-                    <div class="category-section mb-16" data-category-group="Premium">
-                        <h3
-                            class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">
-                            Premium <span class="gradient-text">Packages</span></h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
-                            <!-- Product 1 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Graphic Design">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div
-                                            class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">
-                                            Most Popular</div>
-                                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">
-                                            Graphic Design</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            Starter Pack</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Logo + Business Card + 2
-                                            Social Media Posts<br><span
-                                                class="text-xs text-gray-500 mt-2 block">(Without Logo & Business Card 1
-                                                Post = LKR 1000)</span></p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 3,499</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Starter+Pack"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal border-neonPurple/60 shadow-[0_0_15px_rgba(188,19,254,0.15)] hover:border-neonPurple hover:shadow-[0_0_25px_rgba(188,19,254,0.3)]">
+                            <div class="bg-neonPurple text-white text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Best Value</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Social Media Pro</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">7 Custom Premium Posts + Interactive Stories + Reels.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 9,900</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonPurple text-white rounded-xl font-bold transition-all hover:scale-105">Select Package</a>
                             </div>
-                            <!-- Product 2 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Graphic Design">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div
-                                            class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">
-                                            Best Value</div>
-                                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">
-                                            Graphic Design</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            Social Media Pro</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">7 Custom Posts + Stories +
-                                            Reels</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 9,900</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Social+Media+Pro+Package"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product 3 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Graphic Design">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div
-                                            class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">
-                                            Premium</div>
-                                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">
-                                            Graphic Design</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">
-                                            Brand Empire</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">Full Brand Identity + Logo
-                                            + 20 Posts + Flyers</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 19,000</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Brand+Empire+Package"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product 4 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Social Media Management">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div
-                                            class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">
-                                            Starter</div>
-                                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">
-                                            Social Media Management</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">
-                                            Basic Management</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">4 Posts per month +
-                                            Followers Grow up to 1K + Monthly Report</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 6,900</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Basic+SMM+Management"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product 5 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Social Media Management">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div
-                                            class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">
-                                            Popular</div>
-                                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">
-                                            Social Media Management</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">
-                                            Growth Package</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">10 Posts + Stories + 5K+
-                                            Followers & 1K+ Likes Engagement + Monthly Report</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 12,800</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+SMM+Growth+Package"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Product 6 -->
-                            <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d"
-                                data-category="Social Media Management">
-                                <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                    <div>
-                                        <div
-                                            class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">
-                                            Premium</div>
-                                        <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">
-                                            Social Media Management</div>
-                                        <h3
-                                            class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">
-                                            Full Management Package</h3>
-                                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">20 Posts + Stories + Reels
-                                            Script + 10K+ Followers & 5K+ Likes Engagement + Full Page Management +
-                                            Weekly Report</p>
-                                    </div>
-                                    <div class="mt-auto border-t border-gray-800 pt-6">
-                                        <div class="flex flex-col gap-4">
-                                            <span class="text-xl md:text-2xl font-bold text-white">LKR 25,900</span>
-                                            <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Full+SMM+Package"
-                                                target="_blank"
-                                                class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal hover:border-neonPurple hover:shadow-[0_0_20px_rgba(188,19,254,0.2)]">
+                            <div class="bg-neonPurple text-white text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Premium</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Brand Empire</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">Full Brand Identity + Corporate Logo + 20 Posts + Custom Flyers.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 19,000</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonPurple/10 text-neonPurple hover:bg-neonPurple hover:text-white border border-neonPurple rounded-xl font-bold transition-all">Select Package</a>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- SMM (Blue) -->
+                <div class="category-wrapper mb-24" data-category="SMM">
+                    <div class="text-center mb-10 gsap-reveal"><h3 class="inline-block text-3xl font-black text-neonBlue border-b-2 border-neonBlue/30 pb-2">Social Media Management</h3></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal hover:border-neonBlue hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]">
+                            <div class="bg-neonBlue text-black text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Starter</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Basic Management</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">4 Posts/month + Followers up to 1K + Monthly Report.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 6,900</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonBlue/10 text-neonBlue hover:bg-neonBlue hover:text-black border border-neonBlue rounded-xl font-bold transition-all">Select Plan</a>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal border-neonBlue/60 shadow-[0_0_15px_rgba(0,243,255,0.15)] hover:border-neonBlue hover:shadow-[0_0_25px_rgba(0,243,255,0.3)]">
+                            <div class="bg-neonBlue text-black text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Popular</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Growth Package</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">10 Posts + Stories + 5K+ Followers & 1K+ Likes Engagement + Report.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 12,800</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonBlue text-black rounded-xl font-bold transition-all hover:scale-105">Select Plan</a>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal hover:border-neonBlue hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]">
+                            <div class="bg-neonBlue text-black text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Premium</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Full Management</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">20 Posts + Stories + Reels Script + 10K+ Followers & 5K+ Likes + Weekly Report.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 25,900</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonBlue/10 text-neonBlue hover:bg-neonBlue hover:text-black border border-neonBlue rounded-xl font-bold transition-all">Select Plan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Followers (Green) -->
+                <div class="category-wrapper mb-10" data-category="Followers">
+                    <div class="text-center mb-10 gsap-reveal"><h3 class="inline-block text-3xl font-black text-neonGreen border-b-2 border-neonGreen/30 pb-2">Followers Packages</h3></div>
+                    
+                    <div class="flex flex-col md:flex-row justify-center items-stretch gap-10 max-w-5xl mx-auto">
+                        <div class="w-full md:w-1/2 glass-card rounded-2xl overflow-hidden flex flex-col gsap-reveal border-white/10 hover:border-neonGreen hover:shadow-[0_0_25px_rgba(0,255,157,0.2)] transition-all">
+                            <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273492/INSTA_Followers_fhbsiv.jpg" class="w-full h-auto object-cover block">
+                            <div class="p-8 text-center flex flex-col flex-grow">
+                                <h4 class="text-2xl font-bold mb-6 text-white">Instagram Followers</h4>
+                                <a href="https://wa.me/94783040717" target="_blank" class="mt-auto inline-block w-full py-3 bg-neonGreen/10 border border-neonGreen text-neonGreen hover:bg-neonGreen hover:text-black rounded-xl font-bold transition-all text-lg">Buy Now</a>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2 glass-card rounded-2xl overflow-hidden flex flex-col gsap-reveal border-white/10 hover:border-neonGreen hover:shadow-[0_0_25px_rgba(0,255,157,0.2)] transition-all">
+                            <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273491/FB_Followers_ljd7tn.jpg" class="w-full h-auto object-cover block">
+                            <div class="p-8 text-center flex flex-col flex-grow">
+                                <h4 class="text-2xl font-bold mb-6 text-white">Facebook Followers</h4>
+                                <a href="https://wa.me/94783040717" target="_blank" class="mt-auto inline-block w-full py-3 bg-neonGreen/10 border border-neonGreen text-neonGreen hover:bg-neonGreen hover:text-black rounded-xl font-bold transition-all text-lg">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- SECTION 4: ABOUT -->
-        <section class="fp-section flex flex-col items-center justify-start overflow-y-auto w-full h-full"
-            id="section-about">
-            <div class="container mx-auto px-6 relative z-10 pt-28 pb-20 flex flex-col justify-start">
-                <div class="flex flex-col md:flex-row items-center gap-12">
-                    <div class="w-full md:w-1/2 card-3d">
-                        <img loading="lazy" decoding="async"
-                            src="https://i.ibb.co/QjnhnH79/Whats-App-Image-2025-12-08-at-8-08-10-PM.jpg"
-                            class="rounded-2xl shadow-2xl transition-all duration-500 border border-gray-800 max-w-full h-auto">
+        <!-- 4. About & Contact Section -->
+        <section id="about" class="py-24 relative z-10 bg-black border-t border-white/10">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                    <div class="glass-card p-4 rounded-3xl gsap-reveal">
+                        <img src="https://i.ibb.co/QjnhnH79/Whats-App-Image-2025-12-08-at-8-08-10-PM.jpg" class="w-full h-auto rounded-2xl object-cover grayscale hover:grayscale-0 transition-all duration-700">
                     </div>
-                    <div class="w-full md:w-1/2 text-left">
-                        <h2 class="text-4xl font-bold mb-4">Behind the <span class="gradient-text">Pixel</span></h2>
-                        <h3 class="text-2xl mb-4">I'm <span class="text-neon-purple">Dulanga</span></h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed">
-                            Passionate Graphic Designer and Digital Artist with over 2 years of experience. I transform
-                            abstract ideas into tangible, PREMIUM visuals.
-                        </p>
+                    <div class="gsap-reveal">
+                        <h2 class="text-4xl font-bold mb-4">Behind the <span class="text-neonPurple">Pixel</span></h2>
+                        <h3 class="text-2xl font-semibold text-white mb-4">Hello, I'm <span class="text-neonBlue">Dulanga</span>.</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed">I am a passionate Graphic Designer and Digital Artist with over 2 years of experience creating visual identities that speak louder than words. Specializing in branding, UI/UX, and futuristic conceptual art.</p>
                         <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between text-sm mb-1"><span>Photoshop</span><span
-                                        class="text-neon-blue">95%</span></div>
-                                <div class="w-full bg-gray-800 h-2 rounded-full">
-                                    <div class="bg-neon-blue h-2 rounded-full" style="width:95%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-1"><span>Illustrator</span><span
-                                        class="text-neon-purple">90%</span></div>
-                                <div class="w-full bg-gray-800 h-2 rounded-full">
-                                    <div class="bg-neon-purple h-2 rounded-full" style="width:90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-sm mb-1"><span>Blender</span><span
-                                        class="text-neon-blue">65%</span></div>
-                                <div class="w-full bg-gray-800 h-2 rounded-full">
-                                    <div class="bg-neon-blue h-2 rounded-full" style="width:65%"></div>
-                                </div>
-                            </div>
+                            <div><div class="flex justify-between text-sm font-bold mb-1"><span class="text-gray-300">Photoshop</span><span class="text-neonPurple">95%</span></div><div class="w-full bg-white/10 rounded-full h-2"><div class="bg-neonPurple h-2 rounded-full" style="width: 95%"></div></div></div>
+                            <div><div class="flex justify-between text-sm font-bold mb-1"><span class="text-gray-300">Illustrator</span><span class="text-neonBlue">90%</span></div><div class="w-full bg-white/10 rounded-full h-2"><div class="bg-neonBlue h-2 rounded-full" style="width: 90%"></div></div></div>
+                            <div><div class="flex justify-between text-sm font-bold mb-1"><span class="text-gray-300">Blender / 3D</span><span class="text-white">65%</span></div><div class="w-full bg-white/10 rounded-full h-2"><div class="bg-white h-2 rounded-full" style="width: 65%"></div></div></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- SECTION 5: CONTACT -->
-        <section class="fp-section flex flex-col items-center justify-start overflow-y-auto w-full h-full"
-            id="section-contact">
-            <div class="container mx-auto px-6 relative z-10 max-w-4xl pt-28 pb-20">
-                <div class="glass-card p-8 md:p-12 rounded-3xl border border-gray-800 card-3d">
-                    <div class="text-center mb-8">
-                        <h2 class="text-3xl font-bold">Let's Build <span class="gradient-text">Extraordinary</span></h2>
-                        <p class="text-gray-400 text-sm mt-2">Open for commissions and collaborations.</p>
+                <div id="contact" class="text-center gsap-reveal border-t border-white/5 pt-16">
+                    <h2 class="text-4xl font-bold mb-8">Let's Build Something <span class="text-neonPurple">Extraordinary</span></h2>
+                    <div class="flex flex-col sm:flex-row justify-center gap-6">
+                        <a href="https://wa.me/94783040717" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] hover:bg-[#25D366] hover:text-white rounded-xl font-bold transition-all shadow-lg">WhatsApp</a>
+                        <a href="https://www.facebook.com/profile.php?id=61584094487378" target="_blank" class="flex items-center justify-center gap-3 px-8 py-4 bg-[#1877F2]/10 border border-[#1877F2]/30 text-[#1877F2] hover:bg-[#1877F2] hover:text-white rounded-xl font-bold transition-all shadow-lg">Facebook</a>
                     </div>
-
-
-                    <div class="mt-8 flex flex-col md:flex-row gap-4 justify-center">
-                        <a href="https://www.facebook.com/profile.php?id=61584094487378" target="_blank"
-                            class="flex items-center justify-center gap-2 bg-[#1877F2]/10 border border-[#1877F2]/30 hover:bg-[#1877F2] text-[#1877F2] hover:text-white py-3 px-6 rounded-xl transition-all font-bold">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg>
-                            Facebook Profile
-                        </a>
-                        <a href="https://api.whatsapp.com/send/?phone=%2B94783040717&text&type=phone_number&app_absent=0"
-                            target="_blank"
-                            class="flex items-center justify-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 hover:bg-[#25D366] text-[#25D366] hover:text-white py-3 px-6 rounded-xl transition-all font-bold">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                            </svg>
-                            WhatsApp Message
-                        </a>
-                    </div>
-
-                    <footer class="mt-10 pt-6 border-t border-gray-800 text-center text-gray-500 text-sm">
-                        &copy; 2026 LEGION GRAFIX | Designed BY <span class="text-neon-blue font-bold">Dulanga</span>
-                    </footer>
                 </div>
+                
+                <div class="border-t border-white/10 pt-8 mt-16 text-center"><p class="text-gray-500 text-sm">© 2026 LEGION GRAFIX | Designed by Dulanga</p></div>
             </div>
         </section>
-
     </div>
 
-    <script defer src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-    <script defer src="js/3d-bg.js"></script>
-    <script defer src="js/main.js"></script>
-    <script defer src="js/3d-core.js"></script>
+    <!-- Core Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('.filter-btn');
-            const cards = document.querySelectorAll('.product-card');
+        // --- 1. THREE.JS WAVE OF PARTICLES ---
+        const initParticleWave = () => {
+            const canvas = document.getElementById('particle-wave-canvas');
+            const scene = new THREE.Scene();
+            // Create camera, placed higher up looking down at the wave
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.set(0, 15, 30);
+            camera.lookAt(0, 0, 0);
 
-            buttons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Update active class
-                    buttons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-                    // Filter cards
-                    const filterValue = btn.getAttribute('data-filter');
-                    cards.forEach(card => {
-                        if (filterValue === 'All' || card.getAttribute('data-category') === filterValue) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+            // Grid variables
+            const SEPARATION = 1.5;
+            const AMOUNTX = 100;
+            const AMOUNTY = 100;
+            const numParticles = AMOUNTX * AMOUNTY;
 
-                    // Hide empty sections
-                    const sections = document.querySelectorAll('.category-section');
-                    if (sections.length > 0) {
-                        sections.forEach(section => {
-                            const visibleCards = Array.from(section.querySelectorAll('.product-card')).some(c => c.style.display !== 'none');
-                            section.style.display = visibleCards ? 'block' : 'none';
-                        });
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(numParticles * 3);
+            const colors = new Float32Array(numParticles * 3);
+
+            let i = 0;
+            // Generate Grid
+            for (let ix = 0; ix < AMOUNTX; ix++) {
+                for (let iy = 0; iy < AMOUNTY; iy++) {
+                    positions[i] = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 2); // X
+                    positions[i + 1] = 0;                                          // Y (will be animated)
+                    positions[i + 2] = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 2); // Z
+
+                    // Color mix: Neon Purple (0xbc13fe) to Neon Blue (0x00f3ff)
+                    const mixRatio = (ix / AMOUNTX);
+                    const color = new THREE.Color().lerpColors(new THREE.Color(0xbc13fe), new THREE.Color(0x00f3ff), mixRatio);
+                    
+                    colors[i] = color.r;
+                    colors[i + 1] = color.g;
+                    colors[i + 2] = color.b;
+
+                    i += 3;
+                }
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.15,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+
+            const particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            // Mouse tracking for Camera Parallax
+            let mouseX = 0, mouseY = 0;
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            document.getElementById('home').addEventListener('mousemove', (event) => {
+                mouseX = event.clientX - windowHalfX;
+                mouseY = event.clientY - windowHalfY;
+            });
+
+            // Animation Loop
+            let count = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Smooth Camera Movement based on Mouse
+                camera.position.x += (mouseX * 0.05 - camera.position.x) * 0.05;
+                camera.position.y += (-mouseY * 0.05 + 15 - camera.position.y) * 0.05;
+                camera.lookAt(scene.position);
+
+                // Animate Waves (Sine and Cosine math)
+                const positionsAttr = particles.geometry.attributes.position.array;
+                let idx = 0;
+                for (let ix = 0; ix < AMOUNTX; ix++) {
+                    for (let iy = 0; iy < AMOUNTY; iy++) {
+                        // Update the Y position
+                        positionsAttr[idx + 1] = (Math.sin((ix + count) * 0.3) * 2.5) +
+                                                 (Math.sin((iy + count) * 0.5) * 2.5);
+                        idx += 3;
+                    }
+                }
+                particles.geometry.attributes.position.needsUpdate = true;
+                
+                // Speed of the wave
+                count += 0.05;
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Handle Resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
+
+        // --- 2. UI LOGIC (Lenis, GSAP, Lightbox) ---
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initParticleWave(); // Start WebGL Wave Effect
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            const tl = gsap.timeline();
+            tl.to("#intro-text", { y: 0, duration: 1, ease: "power4.out", delay: 0.2 });
+            tl.to("#intro-bar", { x: 0, duration: 1.5, ease: "power2.inOut" }, "-=0.5");
+            tl.to("#preloader", { opacity: 0, duration: 0.8, ease: "power2.out", onComplete: () => {
+                document.getElementById('preloader').style.display = 'none';
+                if (typeof window.showAudioPopup === 'function') window.showAudioPopup();
+            }});
+            tl.to("#main-content", { opacity: 1, duration: 1 }, "-=0.4");
+
+            // Smooth Anchor Scrolling for all links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        lenis.scrollTo(targetId, { duration: 1.5 });
                     }
                 });
             });
+
+            const revealElements = document.querySelectorAll('.gsap-reveal');
+            revealElements.forEach((element) => {
+                gsap.to(element, {
+                    scrollTrigger: { trigger: element, start: "top 85%", toggleActions: "play none none reverse" },
+                    y: 0, opacity: 1, duration: 0.8, ease: "power2.out"
+                });
+            });
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const wrappers = document.querySelectorAll('.category-wrapper');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => { b.classList.remove('border-b-2', 'border-white', 'opacity-100'); b.classList.add('opacity-50'); });
+                    btn.classList.add('opacity-100', 'border-b-2', 'border-white');
+                    btn.classList.remove('opacity-50');
+                    const filterValue = btn.getAttribute('data-filter');
+                    wrappers.forEach(wrapper => {
+                        if (filterValue === 'All' || wrapper.getAttribute('data-category') === filterValue) {
+                            wrapper.style.display = 'block';
+                        } else {
+                            wrapper.style.display = 'none';
+                        }
+                    });
+                    setTimeout(() => ScrollTrigger.refresh(), 100);
+                });
+            });
         });
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+            lenis.stop(); 
+        }
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => { lightboxImg.src = ''; }, 300);
+            lenis.start(); 
+        }
+
+        // --- 3. AUDIO CONTROL & PLAYLIST LOGIC ---
+        const bgMusic = document.getElementById('bgMusic');
+        const audioControlBtn = document.getElementById('audioControlBtn');
+        const audioNextBtn = document.getElementById('audioNextBtn');
+        const audioIconPlay = document.getElementById('audioIconPlay');
+        const audioIconPause = document.getElementById('audioIconPause');
+        const songTitleDisplay = document.getElementById('songTitle');
+        const songArtistDisplay = document.getElementById('songArtist');
+        const albumArt = document.getElementById('albumArt');
+        const albumArtContainer = document.getElementById('albumArtContainer');
+        const mediaPlayerWidget = document.getElementById('mediaPlayerWidget');
+
+        const playlist = [
+            {
+                file: "bye.mp3",
+                title: "Bye",
+                artist: "Altare",
+                image: "https://yt3.googleusercontent.com/apSAEtPVQNFFhYmSafhgkMOhwIyKdSr_Rm9F2YqjN1mTmOGLEj2c0tcabX0A5ldIxmT_Eh1tqgx6-WZGBw=w544-h544-l90-rj"
+            },
+            {
+                file: "Story of a Warrior.mp3",
+                title: "Story of a Warrior",
+                artist: "John Michael",
+                image: "https://yt3.googleusercontent.com/S4NDL7_apw3scYfrea8kiWnw_PNpcKPq6G7H6fb2rpYqR4mL2ea3aKMO6QXzuX41PyKUSzs7y_MR3E-u=w544-h544-l90-rj"
+            },
+            {
+                file: "Young Black Rich.mp3",
+                title: "Young Black Rich",
+                artist: "Melly Mike",
+                image: "https://yt3.googleusercontent.com/SNIsED-uXW9uyA6ja8qK6uMYekZ0sYcDDPN_pEZt97OemOs79ofGjcc5BkJ6T7zAA98rVGPp2l1kSY6q=w544-h544-l90-rj"
+            },
+            {
+                file: "September.mp3",
+                title: "September",
+                artist: "Cassie Jadenoler",
+                image: "https://i.ytimg.com/vi/fJur8vCXH-c/hq720.jpg?sqp=-oaymwEKCNUGEN8DIABIWg&rs=AMzJL3nbDLhHy50So4s0rZGBPtSUGihcuA"
+            },
+            {
+                file: "Hollaback.mp3",
+                title: "Hollaback",
+                artist: "Bread Beatz & Sakyul",
+                image: "https://yt3.googleusercontent.com/2aacUhjS8lAoG2Ku1u9bOGOQPDNi0Nh2HskTf9DhKMvMnzXUMRt5I-q5kQFPCKn17fleLEyu_qQ7uRTZTA=w544-h544-l90-rj"
+            }
+        ];
+        let currentSongIndex = 0;
+
+        const updateAudioIcon = () => {
+            if (bgMusic.paused) {
+                audioIconPlay.classList.remove('hidden');
+                audioIconPause.classList.add('hidden');
+                albumArtContainer.style.animationPlayState = 'paused';
+            } else {
+                audioIconPlay.classList.add('hidden');
+                audioIconPause.classList.remove('hidden');
+                albumArtContainer.style.animationPlayState = 'running';
+            }
+        };
+
+        const fadeAudioIn = () => {
+            bgMusic.volume = 0;
+            let vol = 0;
+            const fadeInterval = setInterval(() => {
+                if (vol < 0.95) {
+                    vol += 0.05;
+                    bgMusic.volume = vol;
+                } else {
+                    bgMusic.volume = 1;
+                    clearInterval(fadeInterval);
+                }
+            }, 100);
+        };
+
+        const playSong = (index) => {
+            currentSongIndex = index;
+            const song = playlist[currentSongIndex];
+            
+            // Trigger bump animation
+            mediaPlayerWidget.classList.remove('animate-player-bump');
+            void mediaPlayerWidget.offsetWidth; // trigger reflow
+            mediaPlayerWidget.classList.add('animate-player-bump');
+
+            // Update UI
+            bgMusic.src = song.file;
+            songTitleDisplay.textContent = song.title;
+            songArtistDisplay.textContent = song.artist;
+            albumArt.src = song.image;
+            
+            bgMusic.play().then(() => {
+                fadeAudioIn();
+                updateAudioIcon();
+            }).catch(() => {
+                updateAudioIcon();
+            });
+        };
+
+        const playNextSong = () => {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            playSong(currentSongIndex);
+        };
+
+        // Initialize UI with first song
+        const initSong = playlist[currentSongIndex];
+        songTitleDisplay.textContent = initSong.title;
+        songArtistDisplay.textContent = initSong.artist;
+        albumArt.src = initSong.image;
+        albumArtContainer.style.animationPlayState = 'paused';
+
+        // Try to autoplay on load
+        let playPromise = bgMusic.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                fadeAudioIn();
+                updateAudioIcon();
+            }).catch(error => {
+                updateAudioIcon();
+            });
+        }
+
+        // Audio Popup Logic
+        const audioPopup = document.getElementById('audioPopup');
+        const audioPopupCard = document.getElementById('audioPopupCard');
+        const btnAudioAccept = document.getElementById('btnAudioAccept');
+        const btnAudioDecline = document.getElementById('btnAudioDecline');
+
+        window.showAudioPopup = () => {
+            if (!bgMusic.paused) return; // Already playing because autoplay worked
+            audioPopup.classList.remove('opacity-0', 'pointer-events-none');
+            audioPopupCard.classList.remove('scale-90');
+            audioPopupCard.classList.add('scale-100');
+        };
+
+        const hideAudioPopup = () => {
+            audioPopup.classList.add('opacity-0', 'pointer-events-none');
+            audioPopupCard.classList.remove('scale-100');
+            audioPopupCard.classList.add('scale-90');
+        };
+
+        btnAudioAccept.addEventListener('click', () => {
+            bgMusic.play().then(() => {
+                fadeAudioIn();
+                updateAudioIcon();
+            }).catch(()=>{});
+            hideAudioPopup();
+        });
+
+        btnAudioDecline.addEventListener('click', () => {
+            hideAudioPopup();
+        });
+
+        audioControlBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    fadeAudioIn();
+                });
+            } else {
+                bgMusic.pause();
+            }
+            updateAudioIcon();
+        });
+
+        audioNextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playNextSong();
+        });
+
+        bgMusic.addEventListener('play', updateAudioIcon);
+        bgMusic.addEventListener('pause', updateAudioIcon);
+        bgMusic.addEventListener('ended', playNextSong);
+
+        // --- 4. PREVENT INSPECT & SAVING PHOTOS ---
+        // Disable Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable Inspect Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F12' || 
+               (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+               (e.ctrlKey && (e.key === 'U' || e.key === 'u'))) {
+                e.preventDefault();
+            }
+        });
+
+        // Disable all native dragging
+        document.addEventListener('dragstart', (e) => e.preventDefault());
+
+        // --- 5. DRAG TO SCROLL ---
+        let isDragging = false;
+        let startY;
+        let startScrollY;
+
+        document.addEventListener('mousedown', (e) => {
+            // Prevent dragging if interactive elements are clicked
+            if (['a', 'button', 'input', 'textarea', 'svg'].includes(e.target.tagName.toLowerCase()) || 
+                e.target.closest('button') || 
+                e.target.closest('a')) {
+                return;
+            }
+            isDragging = true;
+            startY = e.clientY;
+            startScrollY = window.scrollY;
+            document.body.style.cursor = 'grabbing';
+            document.body.style.userSelect = 'none'; // Prevent text selection
+            lenis.stop(); // Pause smooth scrolling so window.scrollTo follows 1:1
+        });
+
+        const stopDrag = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            document.body.style.cursor = 'default';
+            document.body.style.userSelect = '';
+            lenis.start(); // Resume smooth scrolling
+        };
+
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('mouseleave', stopDrag);
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault(); // Prevent default text selection behavior
+            const deltaY = e.clientY - startY;
+            window.scrollTo({
+                top: startScrollY - deltaY,
+                behavior: 'instant' // 1:1 tracking
+            });
+        });
+
+        // --- 6. MOBILE MEDIA PLAYER DETECTION ---
+        const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobileDevice) {
+            const wrapper = document.getElementById('mediaPlayerWrapper');
+            wrapper.classList.remove('right-6');
+            wrapper.classList.add('left-0', 'right-0', 'flex', 'justify-center', 'transform', 'scale-75', 'origin-bottom');
+        }
     </script>
 </body>
-
 </html>
