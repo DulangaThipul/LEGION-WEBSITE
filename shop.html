@@ -1,438 +1,444 @@
-﻿<!DOCTYPE html>
-<html lang="si" class="scroll-smooth">
-
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-[#0a0a0a]">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - LEGION GRAFIX</title>
+    <title>LEGION GRAFIX | Cinematic Portfolio</title>
+    
     <!-- Tailwind CSS -->
-    <script defer  src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <script defer  src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        neonPurple: '#bc13fe',
+                        neonBlue: '#00f3ff',
+                        neonPink: '#ff007f',   
+                        neonGreen: '#00ff9d',  
+                    },
                     fontFamily: {
                         sans: ['Outfit', 'sans-serif'],
                     },
-                    colors: {
-                        'neon-blue': '#00f3ff',
-                        'neon-purple': '#bc13fe',
-                        'dark-bg': '#0a0a0a',
-                        'card-bg': '#1a1a1a'
+                    animation: {
+                        'spin-slow': 'spin 4s linear infinite',
+                        'player-bump': 'bump 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
                     },
+                    keyframes: {
+                        bump: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' },
+                        }
+                    }
                 }
             }
         }
     </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
     <style>
-        .filter-btn.active {
-            background-color: #bc13fe;
-            color: white;
-            border-color: #bc13fe;
+        /* Lenis Smooth Scroll Setup */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+        
+        body { background-color: #000; color: #fff; overflow-x: hidden; margin: 0; }
+
+        /* Cinematic Preloader */
+        #preloader {
+            position: fixed; inset: 0; background: #000; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-    </style>
+
+        /* Hovering Text Animation */
+        @keyframes float-hover {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
+            100% { transform: translateY(0px); }
+        }
+        .hover-text-effect {
+            animation: float-hover 4s ease-in-out infinite;
+            background: linear-gradient(to bottom, #ffffff, #b3b3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 10px 20px rgba(188, 19, 254, 0.4));
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background-color: rgba(10, 10, 10, 0.6); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: #bc13fe; box-shadow: 0 0 20px rgba(188, 19, 254, 0.3); transform: translateY(-5px);
+        }
+
+        .gsap-reveal { opacity: 0; transform: translateY(40px); }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bc13fe; }
+
+        /* Photo Viewer (Lightbox) */
+        #lightbox {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000;
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #lightbox.active { opacity: 1; pointer-events: auto; }
+        #lightbox img { max-width: 90%; max-height: 90vh; border-radius: 12px; box-shadow: 0 0 40px rgba(188,19,254,0.3); transform: scale(0.9); transition: transform 0.3s ease; }
+        #lightbox.active img { transform: scale(1); }
+    
+        /* Client Portal Boosts */
+        .glass-card {
+            background-color: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+        .category-wrapper h3 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .filter-btn {
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .filter-btn.opacity-100 {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        /* Hide navbar space */
+        body { padding-top: 0 !important; }
+
+</style>
 </head>
-
-<body class="bg-dark-bg text-white font-sans overflow-x-hidden">
-    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full" style="z-index: -1;"></canvas>
-    <div id="scroll-progress"></div>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="page-transition-wrapper">
-
-        <!-- Navigation -->
-        <nav class="fixed w-full z-50 glass-card transition-all duration-300" id="navbar">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-16 md:h-20">
-                    <div class="flex-shrink-0">
-                        <a href="index.html" class="text-3xl font-bold tracking-tighter gradient-text logo-glow"><span
-                                class="text-white">LEGION GRAFIX</span></a>
-                    </div>
-                    <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-8">
-                            <a href="index.html"
-                                class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                            <a href="shop.html"
-                                class="text-white hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Shop</a>
-                            <a href="portfolio.html"
-                                class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">Portfolio</a>
-                            <a href="about.html"
-                                class="text-gray-300 hover:text-neon-blue px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                            <a href="contact.html"
-                                class="bg-neon-purple hover:bg-purple-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">Contact
-                                Me</a>
-                        </div>
-                    </div>
-                    <!-- Mobile menu button -->
-                    <div class="-mr-2 flex md:hidden">
-                        <button type="button" id="mobile-menu-btn"
-                            class="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                            <span class="sr-only">Open main menu</span>
-                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    </div>
+<body class="antialiased selection:bg-neonPurple selection:text-white">
+<!-- Cinematic Preloader -->
+    <div id="preloader">
+        <div class="overflow-hidden">
+            <h1 id="intro-text" class="text-4xl md:text-6xl font-black tracking-widest text-white translate-y-full">LEGION GRAFIX</h1>
+        </div>
+        <div class="w-48 h-1 bg-white/20 mt-6 rounded-full overflow-hidden">
+            <div id="intro-bar" class="w-full h-full bg-neonPurple -translate-x-full"></div>
+        </div>
+    </div>
+<!-- Photo Viewer Lightbox -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-4xl hover:text-neonPurple transition-colors">&times;</button>
+        <img id="lightbox-img" src="" alt="Full View" onclick="event.stopPropagation()">
+    </div>
+<div id="main-content" class="opacity-0 min-h-screen flex flex-col justify-center">
+<!-- 3. Shop Section -->
+        <section id="shop" class="py-12 md:py-20 relative z-10 bg-[#0a0a0a]">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-10 gsap-reveal">
+                    <h2 class="text-4xl md:text-5xl font-black mb-4">LEGION GRAFIX<br><span class="text-neonPurple text-5xl md:text-7xl mt-4 inline-block">Exclusive Packages</span></h2>
+                    <p class="text-gray-400">Welcome to the Client Portal. Explore our premium design and management packages carefully tailored for your brand growth.</p>
                 </div>
-            </div>
 
-            <!-- Mobile Menu -->
-            <div class="md:hidden hidden bg-black/95 backdrop-blur-2xl border-t border-gray-800 absolute w-full left-0 top-[100%] shadow-2xl z-50"
-                id="mobile-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    <a href="index.html"
-                        class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                    <a href="shop.html" class="text-white block px-3 py-2 rounded-md text-base font-medium">Shop</a>
-                    <a href="portfolio.html"
-                        class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Portfolio</a>
-                    <a href="about.html"
-                        class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
-                    <a href="contact.html"
-                        class="text-neon-blue block px-3 py-2 rounded-md text-base font-medium">Contact
-                        Me</a>
+                <div class="flex flex-wrap justify-center gap-4 mb-20 gsap-reveal">
+                    <button class="filter-btn text-white opacity-100 border-b-2 border-white px-4 py-2 font-bold transition-all" data-filter="All">View All</button>
+                    <button class="filter-btn text-neonPink opacity-50 hover:opacity-100 px-4 py-2 font-bold transition-all" data-filter="Solo">Solo Services</button>
+                    <button class="filter-btn text-neonPurple opacity-50 hover:opacity-100 px-4 py-2 font-bold transition-all" data-filter="Graphic Design">Graphic Design</button>
+                    <button class="filter-btn text-neonBlue opacity-50 hover:opacity-100 px-4 py-2 font-bold transition-all" data-filter="SMM">Social Media Management</button>
+                    <button class="filter-btn text-neonGreen opacity-50 hover:opacity-100 px-4 py-2 font-bold transition-all" data-filter="Followers">Followers Packages</button>
                 </div>
-            </div>
-        </nav>
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
 
-        <!-- Header -->
-        <header class="pt-32 pb-12 text-center bg-gradient-to-b from-dark-bg to-card-bg animate-on-scroll">
-            <h1 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-4">Premium <span class="gradient-text">Assets</span></h1>
-            <p class="text-gray-400 max-w-2xl mx-auto">High-quality design resources for your next big project.</p>
-        </header>
-
-        <!-- Main Content -->
-        <main class="max-w-7xl mx-auto px-4 py-6 md:px-8 md:py-12">
-
-            <!-- Filters -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12" id="filter-buttons">
-                <button class="filter-btn active border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="All">All</button>
-                <button class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="Solo">Solo Services</button>
-                <button class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="Graphic Design">Graphic Design</button>
-                <button class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="Social Media Management">Social Media Management</button>
-                <button class="filter-btn border border-gray-700 px-6 py-2 rounded-full hover:border-neon-purple transition-all" data-filter="Followers">Followers Packages</button>
-            </div>
-
-            <div id="all-products-container" class="animate-on-scroll delay-200">
-                <!-- SECTION 1: SOLO Services -->
-                <div class="category-section mb-16" data-category-group="Solo">
-                    <h3 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">SOLO <span class="text-neon-purple">Services</span></h3>
+                <!-- Solo (Pink) -->
+                <div class="category-wrapper mb-24" data-category="Solo">
+                    <div class="text-center mb-10 gsap-reveal"><h3 class="inline-block text-3xl font-black text-neonPink border-b-2 border-neonPink/30 pb-2">SOLO Services</h3></div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Solo Product 1 -->
-                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
-                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                <div>
-                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
-                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Social Media Post</h3>
-                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Single custom post design, 24H Delivery</p>
-                                </div>
-                                <div class="mt-auto border-t border-gray-800 pt-6">
-                                    <div class="flex flex-col gap-4">
-                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 1,000</span>
-                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Social+Media+Post+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Social Media Post</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Single custom post design, 24H Delivery.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 1,000</span><a href="https://wa.me/94783040717?text=Hi, I want a Social Media Post" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
                         </div>
-
-                        <!-- Solo Product 2 -->
-                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
-                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                <div>
-                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
-                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Logo Design</h3>
-                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Professional logo design</p>
-                                </div>
-                                <div class="mt-auto border-t border-gray-800 pt-6">
-                                    <div class="flex flex-col gap-4">
-                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 1,000+</span>
-                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Logo+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Logo Design</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Professional logo design.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 1,000+</span><a href="https://wa.me/94783040717?text=Hi, I want a Logo Design" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
                         </div>
-
-                        <!-- Solo Product 3 -->
-                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
-                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                <div>
-                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
-                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Business Card</h3>
-                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Single Side LKR 550 / Double Side LKR 750</p>
-                                </div>
-                                <div class="mt-auto border-t border-gray-800 pt-6">
-                                    <div class="flex flex-col gap-4">
-                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 550+</span>
-                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Business+Card+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Business Card</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Single LKR 550 / Double LKR 750.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 550+</span><a href="https://wa.me/94783040717?text=Hi, I want a Business Card" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
                         </div>
-
-                        <!-- Solo Product 4 -->
-                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
-                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                <div>
-                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
-                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Flyer Design</h3>
-                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Standard LKR 700 / With PSD File LKR 1,000</p>
-                                </div>
-                                <div class="mt-auto border-t border-gray-800 pt-6">
-                                    <div class="flex flex-col gap-4">
-                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 700+</span>
-                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Flyer+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Flyer Design</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Standard LKR 700 / With PSD LKR 1,000.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 700+</span><a href="https://wa.me/94783040717" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
                         </div>
-
-                        <!-- Solo Product 5 -->
-                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
-                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                <div>
-                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
-                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">T-Shirt Design</h3>
-                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Custom t-shirt graphic design</p>
-                                </div>
-                                <div class="mt-auto border-t border-gray-800 pt-6">
-                                    <div class="flex flex-col gap-4">
-                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 900+</span>
-                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+T-Shirt+Design" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">T-Shirt Design</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Custom graphic design.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 900+</span><a href="https://wa.me/94783040717" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
                         </div>
-
-                        <!-- Solo Product 6 -->
-                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Solo">
-                            <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                                <div>
-                                    <div class="text-xs text-neon-purple font-bold uppercase tracking-wide mb-2">Solo Services</div>
-                                    <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Custom Reel</h3>
-                                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Custom reel design / animation</p>
-                                </div>
-                                <div class="mt-auto border-t border-gray-800 pt-6">
-                                    <div class="flex flex-col gap-4">
-                                        <span class="text-xl md:text-2xl font-bold text-white">LKR 1,500+</span>
-                                        <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+a+Custom+Reel" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="glass-card rounded-2xl p-6 flex flex-col gsap-reveal hover:border-neonPink hover:shadow-[0_0_20px_rgba(255,0,127,0.2)]">
+                            <span class="text-xs text-neonPink font-bold uppercase mb-2">Solo</span><h4 class="text-xl font-bold mb-2 text-white">Custom Reel</h4><p class="text-gray-400 text-sm mb-6 flex-grow">Design & animation.</p><div class="flex items-center justify-between border-t border-white/10 pt-4"><span class="text-xl font-bold">LKR 1,500+</span><a href="https://wa.me/94783040717" target="_blank" class="px-5 py-2 bg-neonPink/10 text-neonPink hover:bg-neonPink hover:text-white border border-neonPink rounded-xl text-sm font-bold transition-all">Buy Now</a></div>
                         </div>
-
                     </div>
                 </div>
 
-                <!-- SECTION 2: Followers Packages -->
-                <div class="category-section mb-16" data-category-group="Followers">
-                    <h3 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">Followers <span class="text-neon-blue">Packages</span></h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                        <!-- Follower 1 -->
-                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Followers">
-                            <div class="w-full h-auto overflow-hidden relative bg-black/20 cursor-pointer portfolio-card">
-                                <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273492/INSTA_Followers_fhbsiv.jpg" alt="Instagram Followers" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
-                            </div>
-                            <div class="relative p-6 flex flex-col justify-between h-full">
-                                <div>
-                                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Followers Packages</div>
-                                    <h3 class="text-2xl font-bold mb-6 text-white group-hover:text-neon-blue transition-colors">Instagram Followers</h3>
-                                </div>
-                                <div class="border-t border-gray-800 pt-6 mt-auto">
-                                    <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Instagram+Followers" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)] inline-block">Buy Now</a>
-                                </div>
+                <!-- Graphic Design (Purple) -->
+                <div class="category-wrapper mb-24" data-category="Graphic Design">
+                    <div class="text-center mb-10 gsap-reveal"><h3 class="inline-block text-3xl font-black text-neonPurple border-b-2 border-neonPurple/30 pb-2">Graphic Design Packages</h3></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal hover:border-neonPurple hover:shadow-[0_0_20px_rgba(188,19,254,0.2)]">
+                            <div class="bg-neonPurple text-white text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Popular</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Starter Pack</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">Logo + Business Card + 2 Social Media Posts.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 3,499</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonPurple/10 text-neonPurple hover:bg-neonPurple hover:text-white border border-neonPurple rounded-xl font-bold transition-all">Select Package</a>
                             </div>
                         </div>
-
-                        <!-- Follower 2 -->
-                        <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Followers">
-                            <div class="w-full h-auto overflow-hidden relative bg-black/20 cursor-pointer portfolio-card">
-                                <img loading="lazy" decoding="async"  src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273491/FB_Followers_ljd7tn.jpg" alt="Facebook Followers" class="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700 max-w-full h-auto">
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal border-neonPurple/60 shadow-[0_0_15px_rgba(188,19,254,0.15)] hover:border-neonPurple hover:shadow-[0_0_25px_rgba(188,19,254,0.3)]">
+                            <div class="bg-neonPurple text-white text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Best Value</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Social Media Pro</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">7 Custom Premium Posts + Interactive Stories + Reels.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 9,900</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonPurple text-white rounded-xl font-bold transition-all hover:scale-105">Select Package</a>
                             </div>
-                            <div class="relative p-6 flex flex-col justify-between h-full">
-                                <div>
-                                    <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Followers Packages</div>
-                                    <h3 class="text-2xl font-bold mb-6 text-white group-hover:text-neon-blue transition-colors">Facebook Followers</h3>
-                                </div>
-                                <div class="border-t border-gray-800 pt-6 mt-auto">
-                                    <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Facebook+Followers" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)] inline-block">Buy Now</a>
-                                </div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal hover:border-neonPurple hover:shadow-[0_0_20px_rgba(188,19,254,0.2)]">
+                            <div class="bg-neonPurple text-white text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Premium</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Brand Empire</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">Full Brand Identity + Corporate Logo + 20 Posts + Custom Flyers.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 19,000</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonPurple/10 text-neonPurple hover:bg-neonPurple hover:text-white border border-neonPurple rounded-xl font-bold transition-all">Select Package</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SECTION 3: Premium Packages -->
-                <div class="category-section mb-16" data-category-group="Premium">
-                    <h3 class="text-3xl md:text-5xl lg:text-7xl break-words w-full font-bold mb-8 text-white text-center">Premium <span class="gradient-text">Packages</span></h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
-
-                <!-- Product 1 -->
-                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Graphic Design">
-                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                        <div>
-                            <div class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Most Popular</div>
-                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Graphic Design</div>
-                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Starter Pack</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Logo + Business Card + 2 Social Media Posts<br><span class="text-xs text-gray-500 mt-2 block">(Without Logo & Business Card 1 Post = LKR 1000)</span></p>
+                <!-- SMM (Blue) -->
+                <div class="category-wrapper mb-24" data-category="SMM">
+                    <div class="text-center mb-10 gsap-reveal"><h3 class="inline-block text-3xl font-black text-neonBlue border-b-2 border-neonBlue/30 pb-2">Social Media Management</h3></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal hover:border-neonBlue hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]">
+                            <div class="bg-neonBlue text-black text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Starter</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Basic Management</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">4 Posts/month + Followers up to 1K + Monthly Report.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 6,900</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonBlue/10 text-neonBlue hover:bg-neonBlue hover:text-black border border-neonBlue rounded-xl font-bold transition-all">Select Plan</a>
+                            </div>
                         </div>
-                        <div class="mt-auto border-t border-gray-800 pt-6">
-                            <div class="flex flex-col gap-4">
-                                <span class="text-xl md:text-2xl font-bold text-white">LKR 3,499</span>
-                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Starter+Pack" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal border-neonBlue/60 shadow-[0_0_15px_rgba(0,243,255,0.15)] hover:border-neonBlue hover:shadow-[0_0_25px_rgba(0,243,255,0.3)]">
+                            <div class="bg-neonBlue text-black text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Popular</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Growth Package</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">10 Posts + Stories + 5K+ Followers & 1K+ Likes Engagement + Report.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 12,800</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonBlue text-black rounded-xl font-bold transition-all hover:scale-105">Select Plan</a>
+                            </div>
+                        </div>
+                        <div class="glass-card rounded-2xl p-8 flex flex-col gsap-reveal hover:border-neonBlue hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]">
+                            <div class="bg-neonBlue text-black text-[10px] font-bold px-3 py-1 rounded-full w-max mb-3">Premium</div>
+                            <h4 class="text-2xl font-bold mb-4 text-white">Full Management</h4>
+                            <p class="text-gray-400 text-sm mb-6 flex-grow">20 Posts + Stories + Reels Script + 10K+ Followers & 5K+ Likes + Weekly Report.</p>
+                            <div class="border-t border-white/10 pt-6 text-center">
+                                <div class="text-3xl font-bold text-white mb-4">LKR 25,900</div>
+                                <a href="https://wa.me/94783040717" target="_blank" class="block w-full py-3 bg-neonBlue/10 text-neonBlue hover:bg-neonBlue hover:text-black border border-neonBlue rounded-xl font-bold transition-all">Select Plan</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product 2 -->
-                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Graphic Design">
-                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                        <div>
-                            <div class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Best Value</div>
-                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Graphic Design</div>
-                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Social Media Pro</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">7 Custom Posts + Stories + Reels</p>
+                <!-- Followers (Green) -->
+                <div class="category-wrapper mb-10" data-category="Followers">
+                    <div class="text-center mb-10 gsap-reveal"><h3 class="inline-block text-3xl font-black text-neonGreen border-b-2 border-neonGreen/30 pb-2">Followers Packages</h3></div>
+                    
+                    <div class="flex flex-col md:flex-row justify-center items-stretch gap-10 max-w-5xl mx-auto">
+                        <div class="w-full md:w-1/2 glass-card rounded-2xl overflow-hidden flex flex-col gsap-reveal border-white/10 hover:border-neonGreen hover:shadow-[0_0_25px_rgba(0,255,157,0.2)] transition-all">
+                            <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273492/INSTA_Followers_fhbsiv.jpg" class="w-full h-auto object-cover block">
+                            <div class="p-8 text-center flex flex-col flex-grow">
+                                <h4 class="text-2xl font-bold mb-6 text-white">Instagram Followers</h4>
+                                <a href="https://wa.me/94783040717" target="_blank" class="mt-auto inline-block w-full py-3 bg-neonGreen/10 border border-neonGreen text-neonGreen hover:bg-neonGreen hover:text-black rounded-xl font-bold transition-all text-lg">Buy Now</a>
+                            </div>
                         </div>
-                        <div class="mt-auto border-t border-gray-800 pt-6">
-                            <div class="flex flex-col gap-4">
-                                <span class="text-xl md:text-2xl font-bold text-white">LKR 9,900</span>
-                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Social+Media+Pro+Package" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
+                        <div class="w-full md:w-1/2 glass-card rounded-2xl overflow-hidden flex flex-col gsap-reveal border-white/10 hover:border-neonGreen hover:shadow-[0_0_25px_rgba(0,255,157,0.2)] transition-all">
+                            <img src="https://res.cloudinary.com/ddox7uqkb/image/upload/v1778273491/FB_Followers_ljd7tn.jpg" class="w-full h-auto object-cover block">
+                            <div class="p-8 text-center flex flex-col flex-grow">
+                                <h4 class="text-2xl font-bold mb-6 text-white">Facebook Followers</h4>
+                                <a href="https://wa.me/94783040717" target="_blank" class="mt-auto inline-block w-full py-3 bg-neonGreen/10 border border-neonGreen text-neonGreen hover:bg-neonGreen hover:text-black rounded-xl font-bold transition-all text-lg">Buy Now</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product 3 -->
-                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Graphic Design">
-                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                        <div>
-                            <div class="absolute top-4 right-4 bg-neon-purple text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Premium</div>
-                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Graphic Design</div>
-                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-purple transition-colors">Brand Empire</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Full Brand Identity + Logo + 20 Posts + Flyers</p>
-                        </div>
-                        <div class="mt-auto border-t border-gray-800 pt-6">
-                            <div class="flex flex-col gap-4">
-                                <span class="text-xl md:text-2xl font-bold text-white">LKR 19,000</span>
-                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Brand+Empire+Package" target="_blank" class="text-center bg-transparent border border-neon-purple hover:bg-neon-purple text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(188,19,254,0.5)]">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Social Media Management">
-                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                        <div>
-                            <div class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Starter</div>
-                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Social Media Management</div>
-                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">Basic Management</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">4 Posts per month + Followers Grow up to 1K + Monthly Report</p>
-                        </div>
-                        <div class="mt-auto border-t border-gray-800 pt-6">
-                            <div class="flex flex-col gap-4">
-                                <span class="text-xl md:text-2xl font-bold text-white">LKR 6,900</span>
-                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+Basic+SMM+Management" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Social Media Management">
-                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                        <div>
-                            <div class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Popular</div>
-                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Social Media Management</div>
-                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">Growth Package</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">10 Posts + Stories + 5K+ Followers & 1K+ Likes Engagement + Monthly Report</p>
-                        </div>
-                        <div class="mt-auto border-t border-gray-800 pt-6">
-                            <div class="flex flex-col gap-4">
-                                <span class="text-xl md:text-2xl font-bold text-white">LKR 12,800</span>
-                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+SMM+Growth+Package" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="product-card glass-card rounded-xl overflow-hidden group hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 transform hover:-translate-y-2 card-3d" data-category="Social Media Management">
-                    <div class="relative p-8 h-auto min-h-full flex flex-col break-words justify-between">
-                        <div>
-                            <div class="absolute top-4 right-4 bg-neon-blue text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider z-10">Premium</div>
-                            <div class="text-xs text-neon-blue font-bold uppercase tracking-wide mb-2">Social Media Management</div>
-                            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-neon-blue transition-colors">Full Management Package</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">20 Posts + Stories + Reels Script + 10K+ Followers & 5K+ Likes Engagement + Full Page Management + Weekly Report</p>
-                        </div>
-                        <div class="mt-auto border-t border-gray-800 pt-6">
-                            <div class="flex flex-col gap-4">
-                                <span class="text-xl md:text-2xl font-bold text-white">LKR 25,900</span>
-                                <a href="https://wa.me/94783040717?text=Hi%2C+I+want+to+order+the+Full+SMM+Package" target="_blank" class="text-center bg-transparent border border-neon-blue hover:bg-neon-blue hover:text-black text-white px-6 py-3 rounded-full min-h-[44px] flex items-center justify-center font-bold transition-all duration-300 w-full group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)]">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                    </div>
-                </div>
             </div>
-        </main>
+        </section>
+</div>
+<!-- Core Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    
+    <script>
+        // --- 1. THREE.JS WAVE OF PARTICLES ---
+        // --- 2. UI LOGIC (Lenis, GSAP, Lightbox) ---
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
 
-        <!-- Footer -->
-        <footer class="bg-black py-8 md:py-12 border-t border-gray-800 flex flex-col items-center justify-center">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h3 class="text-2xl font-bold gradient-text mb-4">LEGION GRAFIX</h3>
-                <p class="text-gray-500 text-sm">
-                    &copy; 2026 LEGION GRAFIX | Designed BY <span class="text-neon-blue font-bold">Dulanga</span>
-                </p>
-            </div>
-        </footer>
+        document.addEventListener("DOMContentLoaded", () => {
+            
 
-        <script defer  src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
-        <script defer  src="js/3d-bg.js"></script>
-        <script defer  src="js/main.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const buttons = document.querySelectorAll('.filter-btn');
-                const cards = document.querySelectorAll('.product-card');
+            gsap.registerPlugin(ScrollTrigger);
 
-                buttons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        // Update active class
-                        buttons.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
+            const tl = gsap.timeline();
+            tl.to("#intro-text", { y: 0, duration: 1, ease: "power4.out", delay: 0.2 });
+            tl.to("#intro-bar", { x: 0, duration: 1.5, ease: "power2.inOut" }, "-=0.5");
+            tl.to("#preloader", { opacity: 0, duration: 0.8, ease: "power2.out", onComplete: () => {
+                document.getElementById('preloader').style.display = 'none';
+                
+            }});
+            tl.to("#main-content", { opacity: 1, duration: 1 }, "-=0.4");
 
-                        // Filter cards
-                        const filterValue = btn.getAttribute('data-filter');
-                        cards.forEach(card => {
-                            if (filterValue === 'All' || card.getAttribute('data-category') === filterValue) {
-                                card.style.display = 'block';
-                            } else {
-                                card.style.display = 'none';
-                            }
-                        });
-
-                        // Hide empty sections
-                        const sections = document.querySelectorAll('.category-section');
-                        if (sections.length > 0) {
-                            sections.forEach(section => {
-                                const visibleCards = Array.from(section.querySelectorAll('.product-card')).some(c => c.style.display !== 'none');
-                                section.style.display = visibleCards ? 'block' : 'none';
-                            });
-                        }
-                    });
+            // Smooth Anchor Scrolling for all links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        lenis.scrollTo(targetId, { duration: 1.5 });
+                    }
                 });
             });
-        </script>
-    </div> <!-- End Page Transition Wrapper -->
-</body>
 
+            const revealElements = document.querySelectorAll('.gsap-reveal');
+            revealElements.forEach((element) => {
+                gsap.to(element, {
+                    scrollTrigger: { trigger: element, start: "top 85%", toggleActions: "play none none reverse" },
+                    y: 0, opacity: 1, duration: 0.8, ease: "power2.out"
+                });
+            });
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const wrappers = document.querySelectorAll('.category-wrapper');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => { b.classList.remove('border-b-2', 'border-white', 'opacity-100'); b.classList.add('opacity-50'); });
+                    btn.classList.add('opacity-100', 'border-b-2', 'border-white');
+                    btn.classList.remove('opacity-50');
+                    const filterValue = btn.getAttribute('data-filter');
+                    wrappers.forEach(wrapper => {
+                        if (filterValue === 'All' || wrapper.getAttribute('data-category') === filterValue) {
+                            wrapper.style.display = 'block';
+                        } else {
+                            wrapper.style.display = 'none';
+                        }
+                    });
+                    setTimeout(() => ScrollTrigger.refresh(), 100);
+                });
+            });
+        });
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+            lenis.stop(); 
+        }
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => { lightboxImg.src = ''; }, 300);
+            lenis.start(); 
+        }
+
+        // --- 4. PREVENT INSPECT & SAVING PHOTOS ---
+        // Disable Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable Inspect Shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'F12' || 
+               (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+               (e.ctrlKey && (e.key === 'U' || e.key === 'u'))) {
+                e.preventDefault();
+            }
+        });
+
+        // Disable all native dragging
+        document.addEventListener('dragstart', (e) => e.preventDefault());
+
+        // --- 5. DRAG TO SCROLL ---
+        let isDragging = false;
+        let startY;
+        let startScrollY;
+        let lastY;
+        let velocity = 0;
+        let lastTime;
+
+        document.addEventListener('mousedown', (e) => {
+            // Prevent dragging if interactive elements are clicked
+            if (['a', 'button', 'input', 'textarea', 'svg'].includes(e.target.tagName.toLowerCase()) || 
+                e.target.closest('button') || 
+                e.target.closest('a')) {
+                return;
+            }
+            isDragging = true;
+            startY = e.clientY;
+            lastY = e.clientY;
+            startScrollY = window.scrollY;
+            lastTime = performance.now();
+            velocity = 0;
+            document.body.style.cursor = 'grabbing';
+            document.body.style.userSelect = 'none'; // Prevent text selection
+            lenis.stop(); // Pause smooth scrolling so window.scrollTo follows 1:1
+        });
+
+        const stopDrag = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            document.body.style.cursor = 'default';
+            document.body.style.userSelect = '';
+            lenis.start(); // Resume smooth scrolling
+            
+            // Apply Momentum based on drag velocity
+            if (Math.abs(velocity) > 0.5) {
+                const amplitude = velocity * 150; // Adjust for stronger/weaker momentum
+                const targetScroll = window.scrollY - amplitude;
+                lenis.scrollTo(targetScroll, {
+                    duration: 1.5,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                });
+            }
+        };
+
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('mouseleave', stopDrag);
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault(); // Prevent default text selection behavior
+            
+            const now = performance.now();
+            const deltaY = e.clientY - lastY;
+            const deltaTime = now - lastTime;
+            
+            if (deltaTime > 0) {
+                velocity = deltaY / deltaTime; // Calculate px per ms
+            }
+            
+            lastY = e.clientY;
+            lastTime = now;
+
+            const totalDeltaY = e.clientY - startY;
+            window.scrollTo({
+                top: startScrollY - totalDeltaY,
+                behavior: 'instant' // 1:1 tracking while dragging
+            });
+        });
+
+        </script>
+</body>
 </html>
