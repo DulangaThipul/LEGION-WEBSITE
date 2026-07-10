@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth bg-black">
 <head>
-    <head> <link rel="icon" type="image/png" href="favicon.png">
-    <meta name="google-site-verification" content="5CTsPb2s78pqwHxE7eeE4LxaV8yzri67RDrxpTIwAQM" />
-    <meta name="keywords" content="Legion Graphics, legion graphics, graphic design Sri Lanka, video editing, branding, fb followers">
-    <meta name="description" content="Welcome to Legion Graphics. We provide high-quality graphic design, branding, and video editing services to elevate your business.">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGION GRAFIX - 3D Experience</title>
-    <link rel="preload" as="image" href="https://i.ibb.co/QjnhnH79/Whats-App-Image-2025-12-08-at-8-08-10-PM.jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LEGION GRAFIX | Cinematic Portfolio</title>
@@ -143,6 +135,21 @@
     <div id="lightbox" onclick="closeLightbox()">
         <button class="absolute top-6 right-6 text-white text-4xl hover:text-neonPurple transition-colors">&times;</button>
         <img id="lightbox-img" src="" alt="Full View" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- VPN Ad Popup -->
+    <div id="vpnAdPopup" class="fixed bottom-6 left-6 z-[9990] max-w-[300px] md:max-w-sm glass-card p-5 md:p-6 rounded-3xl border border-neonBlue/30 shadow-[0_0_20px_rgba(0,243,255,0.2)] transform -translate-x-[150%] transition-transform duration-700 ease-out flex flex-col gap-3 md:gap-4">
+        <button id="closeVpnAd" class="absolute top-3 right-3 text-gray-400 hover:text-white transition-colors" aria-label="Close Ad">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <div class="flex items-center gap-3 pr-4">
+            <div class="w-10 h-10 rounded-full bg-neonBlue/20 flex items-center justify-center border border-neonBlue flex-shrink-0">
+                <svg class="w-5 h-5 text-neonBlue animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <h3 class="text-base md:text-lg font-bold text-white leading-tight">Stay SECURE!</h3>
+        </div>
+        <p class="text-xs md:text-sm text-gray-300">Get our VPN Connection to stay SECURE and Bypass any package in Sri Lanka.</p>
+        <a href="https://vpn.legiongraphics.site" target="_blank" class="w-full py-2 bg-neonBlue/10 border border-neonBlue text-neonBlue text-center text-sm md:text-base font-bold rounded-xl hover:bg-neonBlue hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(0,243,255,0.3)]">Get VPN Now</a>
     </div>
 
     <!-- Media Player Wrapper -->
@@ -814,6 +821,9 @@
         let isDragging = false;
         let startY;
         let startScrollY;
+        let lastY;
+        let velocity = 0;
+        let lastTime;
 
         document.addEventListener('mousedown', (e) => {
             // Prevent dragging if interactive elements are clicked
@@ -824,7 +834,10 @@
             }
             isDragging = true;
             startY = e.clientY;
+            lastY = e.clientY;
             startScrollY = window.scrollY;
+            lastTime = performance.now();
+            velocity = 0;
             document.body.style.cursor = 'grabbing';
             document.body.style.userSelect = 'none'; // Prevent text selection
             lenis.stop(); // Pause smooth scrolling so window.scrollTo follows 1:1
@@ -836,6 +849,16 @@
             document.body.style.cursor = 'default';
             document.body.style.userSelect = '';
             lenis.start(); // Resume smooth scrolling
+            
+            // Apply Momentum based on drag velocity
+            if (Math.abs(velocity) > 0.5) {
+                const amplitude = velocity * 150; // Adjust for stronger/weaker momentum
+                const targetScroll = window.scrollY - amplitude;
+                lenis.scrollTo(targetScroll, {
+                    duration: 1.5,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                });
+            }
         };
 
         document.addEventListener('mouseup', stopDrag);
@@ -844,10 +867,22 @@
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             e.preventDefault(); // Prevent default text selection behavior
-            const deltaY = e.clientY - startY;
+            
+            const now = performance.now();
+            const deltaY = e.clientY - lastY;
+            const deltaTime = now - lastTime;
+            
+            if (deltaTime > 0) {
+                velocity = deltaY / deltaTime; // Calculate px per ms
+            }
+            
+            lastY = e.clientY;
+            lastTime = now;
+
+            const totalDeltaY = e.clientY - startY;
             window.scrollTo({
-                top: startScrollY - deltaY,
-                behavior: 'instant' // 1:1 tracking
+                top: startScrollY - totalDeltaY,
+                behavior: 'instant' // 1:1 tracking while dragging
             });
         });
 
@@ -858,6 +893,22 @@
             wrapper.classList.remove('right-6');
             wrapper.classList.add('left-0', 'right-0', 'flex', 'justify-center', 'transform', 'scale-75', 'origin-bottom');
         }
+
+        // --- 7. VPN AD POPUP LOGIC ---
+        const vpnAdPopup = document.getElementById('vpnAdPopup');
+        const closeVpnAdBtn = document.getElementById('closeVpnAd');
+        
+        // Show VPN Ad after 3.5 seconds
+        setTimeout(() => {
+            vpnAdPopup.classList.remove('-translate-x-[150%]');
+            vpnAdPopup.classList.add('translate-x-0');
+        }, 3500);
+
+        // Close VPN Ad
+        closeVpnAdBtn.addEventListener('click', () => {
+            vpnAdPopup.classList.remove('translate-x-0');
+            vpnAdPopup.classList.add('-translate-x-[150%]');
+        });
     </script>
 </body>
 </html>
