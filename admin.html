@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEGION GRAFIX - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Outfit', sans-serif; background: #050505; }
+        .glass-card { background: rgba(18, 18, 18, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="p-6 md:p-12 min-h-screen">
+
+    <!-- PASSWORD LOGIN OVERLAY -->
+    <div id="loginModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-card p-8 rounded-3xl max-w-md w-full border-purple-500/30 text-center">
+            <h2 class="text-3xl font-black mb-2 text-white">Admin <span class="text-purple-500">Access</span></h2>
+            <p class="text-gray-400 text-sm mb-6">Enter secure master password to unlock dashboard</p>
+            <input type="password" id="adminPass" placeholder="Enter Access Password" class="w-full bg-black/50 border border-white/20 rounded-xl px-4 py-3 text-white mb-4 text-center outline-none focus:border-purple-500">
+            <button onclick="unlockDashboard()" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(188,19,254,0.4)]">Unlock System</button>
+            <p id="loginError" class="text-red-500 text-xs mt-3 hidden">Incorrect Password!</p>
+        </div>
+    </div>
+
+    <!-- MAIN ADMIN DASHBOARD -->
+    <div id="dashboardContent" class="max-w-4xl mx-auto hidden">
+        <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+            <h1 class="text-3xl font-black text-purple-500">LEGION ADMIN PANEL</h1>
+            <button onclick="saveData()" class="px-6 py-2.5 bg-cyan-400 hover:bg-cyan-500 text-black font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(0,243,255,0.4)]">Save All Changes</button>
+        </div>
+
+        <div class="space-y-8">
+            <!-- 1. General Info -->
+            <div class="glass-card p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-4 text-cyan-400">Contact & Info</h3>
+                <label class="block text-xs text-gray-400 mb-1">WhatsApp Number (Without +)</label>
+                <input id="whatsappNum" type="text" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white mb-4">
+
+                <label class="block text-xs text-gray-400 mb-1">About Me Paragraph</label>
+                <textarea id="aboutText" rows="3" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white"></textarea>
+            </div>
+
+            <!-- 2. Portfolio Images -->
+            <div class="glass-card p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-2 text-purple-500">Portfolio Image URLs</h3>
+                <p class="text-xs text-gray-400 mb-4">Add image direct links (Cloudinary, ImgBB, etc.), one per line.</p>
+                <textarea id="portfolioUrls" rows="6" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-sm font-mono"></textarea>
+            </div>
+
+            <!-- 3. Shop Pricing -->
+            <div class="glass-card p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-4 text-pink-500">Graphic Package Prices (LKR)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Starter Pack</label>
+                        <input id="priceStarter" type="text" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Social Media Pro</label>
+                        <input id="pricePro" type="text" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1">Brand Empire</label>
+                        <input id="priceEmpire" type="text" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURATION
+        const CONFIG = {
+            MASTER_PASS: "LegionAdmin@2026", // <--- මෙතනට ඔයාට ඕන Password එක දාන්න
+            BIN_ID: "YOUR_JSONBIN_BIN_ID",     // <--- JSONBin Bin ID එක
+            API_KEY: "YOUR_JSONBIN_MASTER_KEY" // <--- JSONBin Master Key එක
+        };
+
+        function unlockDashboard() {
+            const pass = document.getElementById('adminPass').value;
+            if (pass === CONFIG.MASTER_PASS) {
+                document.getElementById('loginModal').classList.add('hidden');
+                document.getElementById('dashboardContent').classList.remove('hidden');
+                loadCurrentData();
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
+        async function loadCurrentData() {
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${CONFIG.BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': CONFIG.API_KEY }
+                });
+                const data = (await res.json()).record;
+
+                document.getElementById('whatsappNum').value = data.whatsapp || '';
+                document.getElementById('aboutText').value = data.aboutText || '';
+                document.getElementById('portfolioUrls').value = (data.portfolio || []).join('\n');
+                document.getElementById('priceStarter').value = data.shopPackages?.starter || '';
+                document.getElementById('pricePro').value = data.shopPackages?.pro || '';
+                document.getElementById('priceEmpire').value = data.shopPackages?.empire || '';
+            } catch (err) {
+                alert("Error loading current data!");
+            }
+        }
+
+        async function saveData() {
+            const updatedData = {
+                whatsapp: document.getElementById('whatsappNum').value,
+                aboutText: document.getElementById('aboutText').value,
+                portfolio: document.getElementById('portfolioUrls').value.split('\n').filter(url => url.trim() !== ''),
+                shopPackages: {
+                    starter: document.getElementById('priceStarter').value,
+                    pro: document.getElementById('pricePro').value,
+                    empire: document.getElementById('priceEmpire').value
+                }
+            };
+
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${CONFIG.BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': CONFIG.API_KEY
+                    },
+                    body: JSON.stringify(updatedData)
+                });
+
+                if (res.ok) {
+                    alert("Website Updated Successfully!");
+                } else {
+                    alert("Failed to update.");
+                }
+            } catch (err) {
+                alert("Error saving data!");
+            }
+        }
+    </script>
+</body>
+</html>
